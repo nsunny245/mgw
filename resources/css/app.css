@@ -1,1 +1,23 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+body { font-family: Arial, sans-serif; color: #222; }
+a { text-decoration: none; }
+.section-padding { padding: 70px 0; }
+.main-green { background: #0B3D2E; }
+.text-green { color: #0B3D2E; }
+.btn-gold { background: #D4AF37; color: #fff; border: none; }
+.btn-gold:hover { background: #b89328; color: #fff; }
+.hero-section { background: url('/images/hero.jpg') center center/cover no-repeat; min-height: 700px; position: relative; }
+.hero-overlay { background: rgba(0,0,0,0.45); min-height: 700px; }
+.package-card { border: 1px solid #eee; border-radius: 10px; overflow: hidden; transition: .3s; background: #fff; }
+.package-card:hover { transform: translateY(-5px); }
+.package-card img { height: 220px; object-fit: cover; width: 100%; }
+.city-card { border: 1px solid #eee; border-radius: 10px; overflow: hidden; }
+.city-card img { height: 160px; object-fit: cover; width: 100%; }
+.footer { background: #0B3D2E; color: #fff; }
+.footer a { color: #fff; }
+.whatsapp-float { position: fixed; bottom: 20px; right: 20px; z-index: 999; }
+@media (max-width: 991px) {
+  .hero-section, .hero-overlay { min-height: auto; }
+  .hero-overlay { padding: 60px 0; }
+}
