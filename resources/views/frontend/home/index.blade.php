@@ -1,13 +1,14 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Makkah Gateway')
+@section('title', 'Makkah Gateway - Best Umrah Packages from UK')
+@section('meta_description', 'Affordable Umrah packages from UK with ATOL protection, luxury hotels, flights and visa support.')
 
 @section('content')
-@include('frontend.home.hero')
-@include('frontend.home.trustbar')
+@include('frontend.partials.hero')
 @include('frontend.home.packages')
 @include('frontend.home.whychoose')
 @include('frontend.home.testimonials')
 @include('frontend.home.cities')
+@include('frontend.home.cta')
 @include('frontend.home.blogs')
 @endsection

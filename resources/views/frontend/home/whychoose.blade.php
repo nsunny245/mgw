@@ -1,35 +1,45 @@
-<section id="why-choose" class="section-padding bg-light">
+<section id="why-choose" class="section-padding bg-white pt-4 pb-4">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-green">Why Choose Makkah Gateway</h2>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6">
-                <div class="bg-white p-4 h-100 rounded shadow-sm text-center">
-                    <i class="bi bi-shield-check fs-1 text-green"></i>
-                    <h5 class="mt-3">ATOL Protected</h5>
-                    <p class="mb-0 text-muted">Your booking is protected for complete peace of mind.</p>
+        <h3 class="text-center fw-bold mb-4">Why Choose Makkah Gateway?</h3>
+
+        <div class="row text-center g-3 justify-content-center">
+            <div class="col-lg col-md-4 col-6">
+                <div class="why-item px-2">
+                    <i class="bi bi-building-check d-block mb-2"></i>
+                    <h6 class="fw-bold mb-1">UK Based Company</h6>
+                    <p class="small text-muted mb-0">We are a UK registered company with local support.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="bg-white p-4 h-100 rounded shadow-sm text-center">
-                    <i class="bi bi-building-check fs-1 text-green"></i>
-                    <h5 class="mt-3">Trusted Hotels</h5>
-                    <p class="mb-0 text-muted">Carefully selected stays near Haram for comfort.</p>
+
+            <div class="col-lg col-md-4 col-6">
+                <div class="why-item px-2">
+                    <i class="bi bi-tags d-block mb-2"></i>
+                    <h6 class="fw-bold mb-1">Best Price Guarantee</h6>
+                    <p class="small text-muted mb-0">We ensure the best prices for your Umrah journey.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="bg-white p-4 h-100 rounded shadow-sm text-center">
-                    <i class="bi bi-headset fs-1 text-green"></i>
-                    <h5 class="mt-3">24/7 Support</h5>
-                    <p class="mb-0 text-muted">UK-based team available throughout your journey.</p>
+
+            <div class="col-lg col-md-4 col-6">
+                <div class="why-item px-2">
+                    <i class="bi bi-shield-check d-block mb-2"></i>
+                    <h6 class="fw-bold mb-1">ATOL Protected</h6>
+                    <p class="small text-muted mb-0">Book with confidence with our ATOL protection.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="bg-white p-4 h-100 rounded shadow-sm text-center">
-                    <i class="bi bi-cash-coin fs-1 text-green"></i>
-                    <h5 class="mt-3">Best Value</h5>
-                    <p class="mb-0 text-muted">Affordable packages without compromising quality.</p>
+
+            <div class="col-lg col-md-4 col-6">
+                <div class="why-item px-2">
+                    <i class="bi bi-headset d-block mb-2"></i>
+                    <h6 class="fw-bold mb-1">24/7 Support</h6>
+                    <p class="small text-muted mb-0">Our team is available 24/7 to assist you on your journey.</p>
+                </div>
+            </div>
+
+            <div class="col-lg col-md-4 col-12">
+                <div class="why-item px-2">
+                    <i class="bi bi-sliders2 d-block mb-2"></i>
+                    <h6 class="fw-bold mb-1">Custom Packages</h6>
+                    <p class="small text-muted mb-0">We customize made packages to fit your needs & budget.</p>
                 </div>
             </div>
         </div>

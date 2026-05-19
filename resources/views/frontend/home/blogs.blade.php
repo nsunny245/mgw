@@ -1,17 +1,15 @@
-<section id="blogs" class="section-padding">
+<section id="blogs" class="py-4 bg-white">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-green">Latest Umrah Blogs</h2>
-        </div>
-        <div class="row">
+        <h3 class="text-center fw-bold mb-3">Latest From Our Blog</h3>
+
+        <div class="row g-3">
             @forelse($blogs as $blog)
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="package-card h-100">
-                        <img src="{{ $blog->getFirstMediaUrl('blogs') ?: 'https://placehold.co/600x400?text=Blog' }}" alt="{{ $blog->title }}" class="img-fluid">
-                        <div class="p-4">
-                            <h5 class="fw-bold">{{ $blog->title }}</h5>
-                            <p class="text-muted">{{ \Illuminate\Support\Str::limit(strip_tags($blog->content), 110) }}</p>
-                            <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                <div class="col-lg-4 col-md-6">
+                    <div class="package-card h-100 border rounded-3 overflow-hidden shadow-sm">
+                        <img loading="lazy" src="{{ $blog->getFirstMediaUrl('blogs') ?: 'https://placehold.co/640x280?text=Blog+Image' }}" alt="{{ $blog->title }}" class="img-fluid w-100">
+                        <div class="p-3">
+                            <h6 class="fw-bold mb-2">{{ \Illuminate\Support\Str::limit($blog->title, 55) }}</h6>
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="small text-decoration-none">Read More</a>
                         </div>
                     </div>
                 </div>
