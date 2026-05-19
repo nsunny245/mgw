@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <img src="{{ $package->getFirstMediaUrl('packages') ?: 'https://placehold.co/900x500?text=Package' }}" class="img-fluid rounded mb-4" alt="{{ $package->title }}">
+                <img loading="lazy" src="{{ $package->getFirstMediaUrl('packages') ?: 'https://placehold.co/900x500?text=Package' }}" class="img-fluid rounded mb-4" alt="{{ $package->title }}">
                 <h1 class="fw-bold mb-4">{{ $package->title }}</h1>
                 <div class="mb-4">{!! $package->description !!}</div>
             </div>
@@ -32,6 +32,20 @@
         </div>
     </div>
 </section>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"What is included in this package?",
+      "acceptedAnswer":{"@type":"Answer","text":"Flights hotels visa and transport included."}
+    }
+  ]
+}
+</script>
 
 @include('frontend.components.related-packages')
 @endsection

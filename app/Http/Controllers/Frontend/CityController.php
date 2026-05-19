@@ -14,6 +14,11 @@ class CityController extends Controller
         $city = City::where('slug', $slug)->firstOrFail();
         SEOTools::setTitle($city->meta_title ?? $city->name);
         SEOTools::setDescription($city->meta_description ?? 'Umrah packages from UK cities');
+        SEOTools::setCanonical(url()->current());
+        SEOTools::opengraph()->setUrl(url()->current());
+        SEOTools::opengraph()->addProperty('type', 'website');
+        SEOTools::opengraph()->addImage(asset('frontend/images/hero-bg.png'));
+        SEOTools::twitter()->setSite('@makkahgateway');
 
         $packages = Package::latest()->take(6)->get();
 
