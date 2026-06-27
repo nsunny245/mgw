@@ -16,6 +16,11 @@ class CityResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-map-pin';
     protected static ?string $navigationGroup = 'SEO Pages';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasAnyRole(['Super Admin', 'Manager', 'Sales Agent', 'Operations Officer']) ?? false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form->schema([

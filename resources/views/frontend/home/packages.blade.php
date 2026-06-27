@@ -26,11 +26,11 @@
                             <h5 class="fw-bold text-center mb-1 package-title">{{ $package->title }}</h5>
                             <p class="text-center text-muted small mb-2">{{ $package->departure_city ?: 'Makkah & Madinah' }}</p>
 
-                            <div class="d-flex justify-content-center flex-wrap gap-2 small text-muted mb-3">
-                                <span><i class="bi bi-airplane"></i> Flights</span>
-                                <span><i class="bi bi-building"></i> Hotels</span>
-                                <span><i class="bi bi-file-earmark-text"></i> Visa</span>
-                                <span><i class="bi bi-bus-front"></i> Transport</span>
+                            <div class="d-flex justify-content-center flex-wrap gap-3 small text-muted mb-3 align-items-center">
+                                <span><i class="bi bi-airplane fs-5 text-success"></i> Flights</span>
+                                <span><i class="bi bi-building fs-5 text-success"></i> Hotels</span>
+                                <span><i class="bi bi-file-earmark-text fs-5 text-success"></i> Visa</span>
+                                <span><i class="bi bi-bus-front fs-5 text-success"></i> Transport</span>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">

@@ -23,14 +23,31 @@ class HomeController extends Controller
 
         $featuredPackages = Package::where('featured', 1)->latest()->take(6)->get();
         $cities = City::latest()->take(6)->get();
+        $allCities = City::orderBy('name')->get();
         $blogs = Blog::latest()->take(3)->get();
         $testimonials = Testimonial::latest()->take(6)->get();
+        $heroCarousel = \App\Models\Carousel::where('location', 'home_under_hero')->where('active', true)->first();
 
         return view('frontend.home.index', compact(
             'featuredPackages',
             'cities',
+            'allCities',
             'blogs',
-            'testimonials'
+            'testimonials',
+            'heroCarousel'
         ));
+    }
+
+    public function invoice($id)
+    {
+        $customer = \App\Models\Customer::with(['package', 'payments', 'flightBookings', 'hotelBookings'])->findOrFail($id);
+        return view('frontend.customers.invoice', compact('customer'));
+    }
+
+    public function atol($id)
+    {
+        $customer = \App\Models\Customer::with(['package'])->findOrFail($id);
+        $atol = \App\Models\AtolCompliance::where('customer_id', $id)->first();
+        return view('frontend.customers.atol', compact('customer', 'atol'));
     }
 }

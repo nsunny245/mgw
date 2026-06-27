@@ -20,7 +20,7 @@ class CityController extends Controller
         SEOTools::opengraph()->addImage(asset('frontend/images/hero-bg.png'));
         SEOTools::twitter()->setSite('@makkahgateway');
 
-        $packages = Package::latest()->take(6)->get();
+        $packages = Package::where('departure_city', $city->name)->latest()->get();
 
         return view('frontend.cities.show', compact('city', 'packages'));
     }

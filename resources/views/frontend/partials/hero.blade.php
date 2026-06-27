@@ -1,7 +1,7 @@
 <section class="hero-section position-relative">
     <div class="hero-overlay"></div>
 
-    <a href="https://wa.me/923000000000" target="_blank" class="hero-whatsapp-tab">
+    <a href="https://wa.me/{{ $settings->whatsapp_number ?? '447380888233' }}" target="_blank" class="hero-whatsapp-tab">
         <span>Contact on WhatsApp</span>
         <i class="bi bi-whatsapp"></i>
     </a>
@@ -24,11 +24,40 @@
                     <h3 class="fw-bold text-center mb-4">Get The Best Umrah Deals!</h3>
                     <form action="{{ route('inquiry.store') }}" method="POST">
                         @csrf
-                        <div class="mb-3"><input type="text" name="name" class="form-control" placeholder="Full Name" required></div>
-                        <div class="mb-3"><input type="text" name="phone" class="form-control" placeholder="Phone Number" required></div>
-                        <div class="mb-3"><select class="form-select" name="city"><option>Select City</option></select></div>
-                        <div class="mb-3"><select class="form-select"><option>Travel Month</option></select></div>
-                        <div class="mb-3"><select class="form-select" name="package_type"><option>Package Type</option></select></div>
+                        <div class="mb-3">
+                            <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="city" required>
+                                <option value="">Select Departure City</option>
+                                @foreach($allCities as $c)
+                                    <option value="{{ $c->name }}">{{ $c->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="persons" required>
+                                <option value="">How many persons?</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="8+">8+</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input type="date" name="travel_date" class="form-control" placeholder="Travel Date" required>
+                        </div>
                         <button type="submit" class="btn btn-success w-100 fw-bold">GET BEST DEAL NOW</button>
                         <p class="small text-muted text-center mb-0 mt-3">Your information is safe with us.</p>
                     </form>
@@ -42,7 +71,7 @@
             <div class="row text-center text-white g-0">
                 <div class="col-md-3 trust-item">
                     <strong>ATOL Protected</strong>
-                    <div class="tiny">License No: 9743</div>
+                    <div class="tiny">License No: 11941</div>
                 </div>
                 <div class="col-md-3 trust-item">
                     <strong>IATA Certified</strong>

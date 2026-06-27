@@ -3,15 +3,22 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use Artesaos\SEOTools\Facades\SEOTools;
 
 class ContactController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('Contact Us');
-        SEOTools::setDescription('Contact Makkah Gateway for Umrah package inquiries.');
+        $page = Page::where('slug', 'contact-us')->first();
 
-        return view('frontend.contact.index');
+        if ($page) {
+            SEOTools::setTitle($page->meta_title ?? $page->title);
+            SEOTools::setDescription($page->meta_description ?? 'Contact Us');
+        } else {
+            SEOTools::setTitle('Contact Us');
+        }
+
+        return view('frontend.contact.index', compact('page'));
     }
 }

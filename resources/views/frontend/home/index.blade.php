@@ -5,6 +5,7 @@
 
 @section('content')
 @include('frontend.partials.hero')
+@include('frontend.home.carousel')
 @include('frontend.home.packages')
 @include('frontend.home.whychoose')
 @include('frontend.home.testimonials')
