@@ -1,5 +1,5 @@
 <header>
-    <div class="top-bar py-2 border-bottom bg-white">
+    <div class="top-bar py-2 border-bottom bg-white d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-2 col-md-12 text-center text-lg-start mb-2 mb-lg-0">
