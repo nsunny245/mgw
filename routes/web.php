@@ -46,3 +46,14 @@ Route::get('/ben-orbit-portal-7842/{path?}', function ($path = null) {
 Route::get('/ben-orbit-portal/{path?}', function ($path = null) {
     return redirect('/admin' . ($path ? '/' . $path : ''));
 })->where('path', '.*');
+
+Route::get('/run-ga-setup', function () {
+    $setting = \App\Models\Setting::first();
+    if ($setting) {
+        $setting->update(['google_analytics_id' => 'G-CJME2XSDZV']);
+    }
+    \Illuminate\Support\Facades\Artisan::call('config:clear');
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    \Illuminate\Support\Facades\Artisan::call('view:clear');
+    return 'Google Analytics G-CJME2XSDZV successfully activated on live site!';
+});
