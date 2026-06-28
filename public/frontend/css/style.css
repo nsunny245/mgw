@@ -53,7 +53,7 @@ body{font-family:'Poppins',sans-serif;}
 html, body { margin: 0; padding: 0; }
 #footer { margin-bottom: 0 !important; }
 footer:last-of-type { margin-bottom: 0 !important; }
-.whatsapp-float { position: fixed; bottom: 20px; left: 20px; z-index: 999; }
+.whatsapp-float { position: fixed; bottom: 20px; right: 20px; left: auto; z-index: 999; }
 
 /* Premium Navigation Dropdowns */
 .navbar-nav .dropdown-menu {

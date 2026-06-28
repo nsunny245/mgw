@@ -51,7 +51,8 @@
 .mg-chat-widget {
     position: fixed;
     bottom: 25px;
-    right: 25px;
+    left: 25px;
+    right: auto;
     z-index: 10000;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -80,7 +81,8 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     position: absolute;
     bottom: 70px;
-    right: 0;
+    left: 0;
+    right: auto;
     display: flex;
     flex-direction: column;
 }

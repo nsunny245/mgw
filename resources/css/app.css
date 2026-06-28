@@ -16,7 +16,7 @@ a { text-decoration: none; }
 .city-card img { height: 160px; object-fit: cover; width: 100%; }
 .footer { background: #0B3D2E; color: #fff; }
 .footer a { color: #fff; }
-.whatsapp-float { position: fixed; bottom: 20px; left: 20px; z-index: 999; }
+.whatsapp-float { position: fixed; bottom: 20px; right: 20px; left: auto; z-index: 999; }
 @media (max-width: 991px) {
   .hero-section, .hero-overlay { min-height: auto; }
   .hero-overlay { padding: 60px 0; }
