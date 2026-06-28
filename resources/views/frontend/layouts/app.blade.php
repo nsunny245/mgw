@@ -7,10 +7,6 @@
     <meta name="description" content="@yield('meta_description')">
     {!! SEO::generate() !!}
 
-    @if(!empty($settings->google_search_console_meta))
-        {!! $settings->google_search_console_meta !!}
-    @endif
-
     @if(!empty($settings->google_analytics_id))
         <!-- Google Analytics GA4 -->
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ $settings->google_analytics_id }}"></script>
@@ -20,6 +16,10 @@
           gtag('js', new Date());
           gtag('config', '{{ $settings->google_analytics_id }}');
         </script>
+    @endif
+
+    @if(!empty($settings->google_search_console_meta))
+        {!! $settings->google_search_console_meta !!}
     @endif
 
     @if(!empty($settings->google_tag_manager_id))
