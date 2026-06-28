@@ -38,3 +38,11 @@ Route::get('/terms-and-conditions', function () {
 Route::get('/disclaimer', function () {
     return view('frontend.pages.disclaimer');
 })->name('disclaimer');
+
+Route::get('/ben-orbit-portal-7842/{path?}', function ($path = null) {
+    return redirect('/admin' . ($path ? '/' . $path : ''));
+})->where('path', '.*');
+
+Route::get('/ben-orbit-portal/{path?}', function ($path = null) {
+    return redirect('/admin' . ($path ? '/' . $path : ''));
+})->where('path', '.*');

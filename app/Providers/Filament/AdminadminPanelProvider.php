@@ -25,7 +25,7 @@ class AdminadminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('benops')
-            ->path('ben-orbit-portal-7842')
+            ->path('admin')
             ->login()
             ->brandName('Makkah Gateway CMS')
             ->brandLogo(asset('images/logo-makkah.png'))

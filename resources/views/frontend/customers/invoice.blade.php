@@ -23,7 +23,7 @@
 
 <div class="container my-4 no-print text-center">
     <button onclick="window.print()" class="btn btn-success px-4 py-2 fw-bold"><i class="bi bi-printer-fill me-2"></i> Print Document / Export PDF</button>
-    <a href="/ben-orbit-portal-7842/customers" class="btn btn-secondary px-4 py-2 ms-2">Back to CRM</a>
+    <a href="/admin/customers" class="btn btn-secondary px-4 py-2 ms-2">Back to CRM</a>
 </div>
 
 <div class="invoice-card">
