@@ -50,10 +50,13 @@ Route::get('/ben-orbit-portal/{path?}', function ($path = null) {
 Route::get('/run-ga-setup', function () {
     $setting = \App\Models\Setting::first();
     if ($setting) {
-        $setting->update(['google_analytics_id' => 'G-CJME2XSDZV']);
+        $setting->update([
+            'google_analytics_id' => 'G-CJME2XSDZV',
+            'google_tag_manager_id' => 'GTM-KDZDXW2L',
+        ]);
     }
     \Illuminate\Support\Facades\Artisan::call('config:clear');
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
     \Illuminate\Support\Facades\Artisan::call('view:clear');
-    return 'Google Analytics G-CJME2XSDZV successfully activated on live site!';
+    return 'Google Analytics (G-CJME2XSDZV) & Google Tag Manager (GTM-KDZDXW2L) successfully activated on live site!';
 });
