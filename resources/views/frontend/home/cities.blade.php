@@ -1,7 +1,7 @@
 <section id="cities" class="py-4 bg-white">
     <div class="container">
         <h3 class="text-center fw-bold mb-3">Umrah Packages From Your City</h3>
-
+        <div class="row g-3">
             @php
                 $cityLandmarks = [
                     'london' => 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=400&h=170&q=80',
