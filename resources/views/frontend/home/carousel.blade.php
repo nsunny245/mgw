@@ -24,22 +24,22 @@
                         </div>
                     @endforeach
                 @else
-                    {{-- Premium Default Fallback Airline SVGs (Saudia, Emirates, British Airways, Qatar, Gulf Air, Turkish Airlines) --}}
+                    {{-- Premium Default Fallback Airline Logos (Saudia, Emirates, British Airways, Qatar, Gulf Air, Turkish Airlines) --}}
                     @php
                         $defaultAirlines = [
-                            ['name' => 'Saudia', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="#005A9C"><text x="10" y="25" font-family="sans-serif" font-weight="bold" font-size="16">SAUDIA</text><path d="M5 28 h110" stroke="#005A9C" stroke-width="2"/></svg>'],
-                            ['name' => 'Emirates', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="#D71920"><text x="10" y="25" font-family="sans-serif" font-weight="bold" font-size="16">Emirates</text><path d="M5 28 h110" stroke="#D71920" stroke-width="2"/></svg>'],
-                            ['name' => 'British Airways', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="#00247D"><text x="10" y="25" font-family="sans-serif" font-weight="bold" font-size="14">BRITISH AIRWAYS</text></svg>'],
-                            ['name' => 'Qatar Airways', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="#5c0632"><text x="10" y="25" font-family="sans-serif" font-weight="bold" font-size="14">QATAR AIRWAYS</text></svg>'],
-                            ['name' => 'Gulf Air', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="#cfa043"><text x="10" y="25" font-family="sans-serif" font-weight="bold" font-size="16">GULF AIR</text></svg>'],
-                            ['name' => 'Turkish Airlines', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="#E81C24"><text x="10" y="25" font-family="sans-serif" font-weight="bold" font-size="14">TURKISH AIRLINES</text></svg>'],
+                            ['name' => 'Saudia', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Saudi_Arabian_Airlines_logo.svg'],
+                            ['name' => 'Emirates', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Emirates_logo.svg'],
+                            ['name' => 'British Airways', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/f/f2/British_Airways_Logo.svg'],
+                            ['name' => 'Qatar Airways', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/2/23/Qatar_Airways_Logo.svg'],
+                            ['name' => 'Gulf Air', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Gulf_Air_Logo.svg'],
+                            ['name' => 'Turkish Airlines', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Turkish_Airlines_logo_detailed.svg'],
                         ];
                         // Duplicate for infinite scrolling effect
                         $doubleAirlines = array_merge($defaultAirlines, $defaultAirlines, $defaultAirlines);
                     @endphp
                     @foreach($doubleAirlines as $airline)
-                        <div class="logo-slide mx-4">
-                            {!! $airline['svg'] !!}
+                        <div class="logo-slide mx-4 d-flex align-items-center justify-content-center" style="width: 140px; height: 60px;">
+                            <img src="{{ $airline['logo'] }}" alt="{{ $airline['name'] }}" class="img-fluid" style="max-height: 45px; width: auto; filter: grayscale(20%) contrast(100%);">
                         </div>
                     @endforeach
                 @endif
