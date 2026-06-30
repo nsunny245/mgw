@@ -13,7 +13,7 @@
             @forelse($cities as $city)
                 @php
                     $cleanSlug = trim(strtolower($city->slug));
-                    $imageSrc = $cityLandmarks[$cleanSlug] ?? 'https://placehold.co/400x170?text=' . urlencode($city->name);
+                    $imageSrc = $city->image ? asset('storage/' . $city->image) : ($cityLandmarks[$cleanSlug] ?? 'https://placehold.co/400x170?text=' . urlencode($city->name));
                 @endphp
                 <div class="col-lg col-md-4 col-6">
                     <a href="{{ route('city.show', $city->slug) }}" class="text-decoration-none">

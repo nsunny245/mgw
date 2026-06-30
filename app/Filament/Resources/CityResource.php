@@ -25,6 +25,15 @@ class CityResource extends Resource
     {
         return $form->schema([
             Forms\Components\TextInput::make('name')->required(),
+            Forms\Components\FileUpload::make('image')
+                ->label('Landmark Image')
+                ->image()
+                ->directory('cities')
+                ->imageResizeMode('cover')
+                ->imageCropAspectRatio('400:170')
+                ->imageResizeTargetWidth(400)
+                ->imageResizeTargetHeight(170)
+                ->helperText('Upload a landmark picture for the city (Recommended size: 400x170 px)'),
             Forms\Components\RichEditor::make('content')->columnSpanFull(),
             Forms\Components\TextInput::make('meta_title'),
             Forms\Components\Textarea::make('meta_description'),
