@@ -16,6 +16,21 @@
             }
         };
 
+        // Unlock browser audio context on first user interaction
+        const unlockAudio = () => {
+            const chime = document.getElementById('mg-alert-chime');
+            if (chime) {
+                chime.play().then(() => {
+                    chime.pause();
+                    chime.currentTime = 0;
+                }).catch(e => {});
+            }
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('keydown', unlockAudio);
+        };
+        document.addEventListener('click', unlockAudio);
+        document.addEventListener('keydown', unlockAudio);
+
         // Play chime on native Filament database notification events (polling)
         window.addEventListener('filament-notifications-sent', playChime);
         window.addEventListener('notification-sent', playChime);
