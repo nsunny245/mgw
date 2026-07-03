@@ -48,6 +48,7 @@ Route::get('/ben-orbit-portal/{path?}', function ($path = null) {
 })->where('path', '.*');
 
 Route::get('/run-ga-setup', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate --force');
     $setting = \App\Models\Setting::first();
     if ($setting) {
         $setting->update([
@@ -58,5 +59,5 @@ Route::get('/run-ga-setup', function () {
     \Illuminate\Support\Facades\Artisan::call('config:clear');
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
     \Illuminate\Support\Facades\Artisan::call('view:clear');
-    return 'Google Analytics (G-CJME2XSDZV) & Google Tag Manager (GTM-KDZDXW2L) successfully activated on live site!';
+    return 'Database migrated, Google Analytics & GTM successfully activated on live site!';
 });
