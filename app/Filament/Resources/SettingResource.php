@@ -62,6 +62,20 @@ class SettingResource extends Resource
                         ->placeholder('<script>...</script>')
                         ->rows(3),
                 ])->columns(2),
+            Forms\Components\Section::make('Notification Alerts')
+                ->description('Configure Pusher channels for real-time WebSockets and comma-separated email addresses for offline notifications.')
+                ->schema([
+                    Forms\Components\Textarea::make('notification_emails')
+                        ->label('Notification Email Addresses')
+                        ->helperText('Enter multiple email addresses separated by commas (e.g. admin@makkahgateway.co.uk, sales@makkahgateway.co.uk)')
+                        ->placeholder('email1@example.com, email2@example.com')
+                        ->rows(2)
+                        ->columnSpanFull(),
+                    Forms\Components\TextInput::make('pusher_app_id')->label('Pusher App ID'),
+                    Forms\Components\TextInput::make('pusher_app_key')->label('Pusher App Key'),
+                    Forms\Components\TextInput::make('pusher_app_secret')->label('Pusher App Secret')->password()->revealable(),
+                    Forms\Components\TextInput::make('pusher_app_cluster')->label('Pusher App Cluster')->placeholder('e.g. eu or ap2'),
+                ])->columns(2),
         ]);
     }
 

@@ -31,14 +31,40 @@ class InquiryController extends Controller
 
         $inquiry = Inquiry::create($data);
 
-        // Fetch configured settings email, fallback to default info@makkahgateway.co.uk if not set
-        $notificationEmail = Setting::first()->email ?? 'info@makkahgateway.co.uk';
+        // Fetch configured settings
+        $settings = Setting::first();
 
-        try {
-            Mail::to($notificationEmail)->send(new InquirySubmitted($inquiry));
-        } catch (\Exception $e) {
-            // Log or ignore during local development
-            logger('Email notification failed: ' . $e->getMessage());
+        // 1. Broadcast real-time WebSocket event
+        if ($settings && !empty($settings->pusher_app_key)) {
+            try {
+                event(new \App\Events\NewInquiryBroadcast($inquiry->toArray()));
+            } catch (\Exception $e) {
+                logger('Broadcasting failed: ' . $e->getMessage());
+            }
+        }
+
+        // 2. Dispatch multi-email notifications
+        $emails = collect([$settings->email ?? 'info@makkahgateway.co.uk']);
+        if ($settings && !empty($settings->notification_emails)) {
+            $additionalEmails = array_filter(array_map('trim', explode(',', $settings->notification_emails)));
+            $emails = $emails->merge($additionalEmails)->unique();
+        }
+
+        foreach ($emails as $email) {
+            try {
+                Mail::to($email)->send(new InquirySubmitted($inquiry));
+                Mail::to($email)->send(new \App\Mail\AdminNotificationMail('New Inquiry Submitted', [
+                    'name' => $inquiry->name,
+                    'phone' => $inquiry->phone,
+                    'email' => $inquiry->email,
+                    'departure_city' => $inquiry->city ?? 'UK',
+                    'persons' => $inquiry->persons ?? '1',
+                    'travel_date' => $inquiry->travel_date,
+                    'message' => $inquiry->message,
+                ]));
+            } catch (\Exception $e) {
+                logger('Email notification failed for ' . $email . ': ' . $e->getMessage());
+            }
         }
 
         return back()->with('success', 'Inquiry submitted successfully.');

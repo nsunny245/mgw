@@ -33,6 +33,41 @@ class ChatApiController extends Controller
             'message' => "Hello {$request->name}! How can we help you today with your Hajj or Umrah inquiries?",
         ]);
 
+        $settings = \App\Models\Setting::first();
+
+        // 1. Broadcast real-time WebSocket event for new chat
+        if ($settings && !empty($settings->pusher_app_key)) {
+            try {
+                event(new \App\Events\NewChatBroadcast([
+                    'name' => $session->visitor_name,
+                    'message' => 'Started a new support chat conversation',
+                    'session_id' => $session->id,
+                ]));
+            } catch (\Exception $e) {
+                logger('Broadcasting chat failed: ' . $e->getMessage());
+            }
+        }
+
+        // 2. Dispatch multi-email notifications
+        $emails = collect([$settings->email ?? 'info@makkahgateway.co.uk']);
+        if ($settings && !empty($settings->notification_emails)) {
+            $additionalEmails = array_filter(array_map('trim', explode(',', $settings->notification_emails)));
+            $emails = $emails->merge($additionalEmails)->unique();
+        }
+
+        foreach ($emails as $email) {
+            try {
+                \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\AdminNotificationMail('New Live Chat Started', [
+                    'visitor_name' => $session->visitor_name,
+                    'visitor_email' => $session->visitor_email ?? 'Not provided',
+                    'assigned_staff' => $supportStaff?->name ?? 'Support Queue',
+                    'action' => 'Visit your admin panel to reply to this conversation.',
+                ]));
+            } catch (\Exception $e) {
+                logger('Chat email notification failed for ' . $email . ': ' . $e->getMessage());
+            }
+        }
+
         return response()->json([
             'success' => true,
             'session_id' => $session->id,
@@ -51,6 +86,20 @@ class ChatApiController extends Controller
             'sender' => 'visitor',
             'message' => $request->message,
         ]);
+
+        $settings = \App\Models\Setting::first();
+        if ($settings && !empty($settings->pusher_app_key)) {
+            try {
+                $session = ChatSession::find($request->chat_session_id);
+                event(new \App\Events\NewChatBroadcast([
+                    'name' => $session->visitor_name,
+                    'message' => $message->message,
+                    'session_id' => $session->id,
+                ]));
+            } catch (\Exception $e) {
+                logger('Broadcasting chat message failed: ' . $e->getMessage());
+            }
+        }
 
         return response()->json([
             'success' => true,

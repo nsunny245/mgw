@@ -23,5 +23,10 @@ class Setting extends Model
         'google_search_console_meta',
         'custom_head_scripts',
         'custom_body_scripts',
+        'notification_emails',
+        'pusher_app_id',
+        'pusher_app_key',
+        'pusher_app_secret',
+        'pusher_app_cluster',
     ];
 }

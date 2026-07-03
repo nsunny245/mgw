@@ -23,6 +23,15 @@ class AppServiceProvider extends ServiceProvider
             $settings = null;
             if (app()->hasDatabaseConnection() && \Illuminate\Support\Facades\Schema::hasTable('settings')) {
                 $settings = \App\Models\Setting::first();
+                if ($settings && !empty($settings->pusher_app_key)) {
+                    config([
+                        'broadcasting.connections.pusher.key' => $settings->pusher_app_key,
+                        'broadcasting.connections.pusher.secret' => $settings->pusher_app_secret,
+                        'broadcasting.connections.pusher.app_id' => $settings->pusher_app_id,
+                        'broadcasting.connections.pusher.options.cluster' => $settings->pusher_app_cluster,
+                        'broadcasting.connections.pusher.options.useTLS' => true,
+                    ]);
+                }
             }
             view()->share('settings', $settings ?? new \App\Models\Setting());
         } catch (\Exception $e) {
