@@ -45,13 +45,13 @@ class InquiryController extends Controller
 
         // 2. Save to database notifications for Filament bell & toasts
         try {
-            $admins = \App\Models\User::whereIn('role', ['Super Admin', 'Manager'])->get();
+            $users = \App\Models\User::all();
             \Filament\Notifications\Notification::make()
                 ->title('New Inquiry Submitted')
                 ->body("Lead from {$inquiry->name} (" . ($inquiry->city ?? 'UK') . ")")
                 ->icon('heroicon-o-document-text')
                 ->iconColor('success')
-                ->sendToDatabase($admins);
+                ->sendToDatabase($users);
         } catch (\Exception $e) {
             logger('Database notification failed: ' . $e->getMessage());
         }

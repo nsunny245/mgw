@@ -50,13 +50,13 @@ class ChatApiController extends Controller
 
         // 2. Save to database notifications for Filament bell & toasts
         try {
-            $adminsAndSupport = User::whereIn('role', ['Super Admin', 'Manager', 'Support Staff'])->get();
+            $users = User::all();
             \Filament\Notifications\Notification::make()
                 ->title('New Live Chat Started')
                 ->body("Visitor {$session->visitor_name} started a live chat.")
                 ->icon('heroicon-o-chat-bubble-left-right')
                 ->iconColor('info')
-                ->sendToDatabase($adminsAndSupport);
+                ->sendToDatabase($users);
         } catch (\Exception $e) {
             logger('Database notification failed: ' . $e->getMessage());
         }
