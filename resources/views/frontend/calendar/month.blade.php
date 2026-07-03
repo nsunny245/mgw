@@ -1,57 +1,178 @@
 @extends('frontend.layouts.app')
 
 @section('title', $monthName . ' Umrah Packages')
-@section('meta_description', 'Compare and find the best Umrah packages departing in ' . $monthName)
+@section('meta_description', 'Compare and find the best Umrah packages departing in ' . $monthName . ' with direct flights and hotels.')
 
 @section('content')
 @include('frontend.components.breadcrumbs', ['title' => $monthName . ' Packages'])
 
-<section class="section-padding py-5">
+{{-- Horizontal Hero Inquiry Form Card --}}
+<section class="bg-light py-4 border-bottom">
     <div class="container">
-        <h1 class="fw-bold mb-4">{{ $monthName }} Umrah Packages</h1>
-        <p class="text-muted mb-5">Browse the custom calendar schedules, hotel standard ratings, and rates for packages scheduled during the month of {{ $monthName }}.</p>
-        
+        <div class="card shadow-sm border-0 rounded-4 p-4">
+            <h5 class="fw-bold text-dark mb-3"><i class="bi bi-patch-check-fill text-success me-1"></i> Get a Free Quote for {{ $monthName }} Umrah Packages</h5>
+            <form action="{{ route('inquiry.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="package_type" value="Monthly page Inquiry ({{ $monthName }})">
+                <div class="row g-2 align-items-end">
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <label class="form-label small mb-1 fw-semibold text-muted">Full Name</label>
+                        <input type="text" name="name" class="form-control form-control-sm" placeholder="Your Name" required style="height: 38px;">
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <label class="form-label small mb-1 fw-semibold text-muted">Phone Number</label>
+                        <input type="text" name="phone" class="form-control form-control-sm" placeholder="Phone" required style="height: 38px;">
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <label class="form-label small mb-1 fw-semibold text-muted">Email Address</label>
+                        <input type="email" name="email" class="form-control form-control-sm" placeholder="Email" required style="height: 38px;">
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <label class="form-label small mb-1 fw-semibold text-muted">Departure City</label>
+                        <select class="form-select form-select-sm" name="city" required style="height: 38px;">
+                            <option value="">Select City</option>
+                            @foreach(\App\Models\City::all() as $c)
+                                <option value="{{ $c->name }}">{{ $c->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <label class="form-label small mb-1 fw-semibold text-muted">Persons</label>
+                        <select class="form-select form-select-sm" name="persons" required style="height: 38px;">
+                            <option value="">Persons</option>
+                            @for($i = 1; $i <= 8; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                            <option value="8+">8+</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1.5 col-md-4 col-sm-6 flex-grow-1">
+                        <label class="form-label small mb-1 fw-semibold text-muted">Travel Date</label>
+                        <input type="date" name="travel_date" class="form-control form-control-sm" required style="height: 38px;">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-success fw-bold px-3 btn-sm text-uppercase" style="height: 38px; font-size: 0.8rem; letter-spacing: 0.5px;">Get Quote</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{{-- Redesigned Monthly Packages Grid --}}
+<section class="section-padding py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="text-success fw-bold text-uppercase tracking-wider" style="font-size: 0.85rem; letter-spacing: 2px;">{{ $monthName }} Schedules</span>
+            <h2 class="fw-bold text-dark mt-1 mb-2">Umrah Packages Scheduled For {{ $monthName }}</h2>
+            <p class="text-muted mb-0">Browse specific calendar schedules, hotels, and custom rates</p>
+        </div>
+
         <div class="row g-4">
             @forelse($schedules as $schedule)
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-                        <img src="{{ $schedule->package->getFirstMediaUrl('packages') ?: 'https://placehold.co/600x350?text=Umrah' }}" class="card-img-top" style="height: 220px; object-fit: cover;" alt="{{ $schedule->package->title }}">
-                        <div class="card-body p-4 d-flex flex-column">
-                            <span class="badge bg-success mb-2 align-self-start">{{ $schedule->package->category->name ?? 'Umrah' }}</span>
-                            <h5 class="fw-bold card-title mb-3">{{ $schedule->package->title }}</h5>
-                            
-                            <div class="mb-3 text-muted small">
-                                <div><i class="bi bi-clock-fill text-success"></i> <strong>Duration:</strong> {{ $schedule->package->duration }} Days</div>
-                                <div><i class="bi bi-geo-alt-fill text-success"></i> <strong>Departing from:</strong> {{ $schedule->package->departure_city ?? 'UK Airport' }}</div>
-                                @if($schedule->start_date && $schedule->end_date)
-                                    <div><i class="bi bi-calendar-check-fill text-success"></i> <strong>Travel Period:</strong> {{ \Carbon\Carbon::parse($schedule->start_date)->format('d M') }} - {{ \Carbon\Carbon::parse($schedule->end_date)->format('d M Y') }}</div>
-                                @endif
-                            </div>
-
-                            @if($schedule->notes)
-                                <div class="alert alert-light p-2 small mb-3 border-0 bg-light">{{ $schedule->notes }}</div>
+                @php
+                    $package = $schedule->package;
+                @endphp
+                <div class="col-lg-4 col-md-6">
+                    <div class="package-card-layout h-100 bg-white overflow-hidden">
+                        {{-- Image Wrapper --}}
+                        <div class="position-relative overflow-hidden" style="height: 220px;">
+                            <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-3 px-2 py-1.5 small fw-bold shadow-sm" style="z-index: 10;">
+                                {{ $package->star_rating ?: 'UMRAH' }}
+                            </span>
+                            @if(!empty($package->duration))
+                                <span class="badge bg-dark text-white position-absolute top-0 end-0 m-3 px-2 py-1.5 small fw-bold shadow-sm" style="z-index: 10;">
+                                    <i class="bi bi-clock me-1"></i> {{ $package->duration }} Days
+                                </span>
                             @endif
 
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ route('package.show', $package->slug) }}?month={{ strtolower($monthName) }}" class="d-block w-100 h-100">
+                                <img
+                                    loading="lazy"
+                                    src="{{ $package->getFirstMediaUrl('packages') ?: 'https://placehold.co/600x260?text=Package' }}"
+                                    alt="{{ $package->title }}"
+                                    class="w-100 package-thumb"
+                                >
+                            </a>
+                        </div>
+
+                        {{-- Card Details --}}
+                        <div class="p-4 d-flex flex-column justify-content-between" style="min-height: 250px;">
+                            <div>
+                                <h5 class="fw-bold mb-2 text-dark package-title" style="font-size: 1.15rem; line-height: 1.4;">
+                                    <a href="{{ route('package.show', $package->slug) }}?month={{ strtolower($monthName) }}" class="text-decoration-none text-dark hover-success">
+                                        {{ $package->title }}
+                                    </a>
+                                </h5>
+                                
+                                {{-- Departure details --}}
+                                <div class="text-muted small mb-2 d-flex align-items-center gap-1">
+                                    <i class="bi bi-geo-alt-fill text-success"></i>
+                                    <span class="text-truncate">
+                                        {{ $package->makkah_hotel ?? 'Makkah' }} & {{ $package->madinah_hotel ?? 'Madinah' }}
+                                    </span>
+                                </div>
+                                <div class="text-muted small mb-3">
+                                    <i class="bi bi-airplane-fill text-success"></i> Departure: {{ $package->departure_city ?? 'UK' }}
+                                </div>
+
+                                {{-- Features badges --}}
+                                <div class="d-flex justify-content-between gap-1 text-secondary mb-4 bg-light py-2 px-3 rounded-3" style="font-size: 0.78rem; font-weight: 500;">
+                                    <span class="d-flex align-items-center gap-1"><i class="bi bi-airplane-fill text-success"></i> Flights</span>
+                                    <span class="d-flex align-items-center gap-1"><i class="bi bi-building-fill text-success"></i> Hotels</span>
+                                    <span class="d-flex align-items-center gap-1"><i class="bi bi-file-earmark-text-fill text-success"></i> Visa</span>
+                                    <span class="d-flex align-items-center gap-1"><i class="bi bi-bus-front-fill text-success"></i> Trans</span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
                                 <div>
-                                    <span class="text-muted small d-block">Price from</span>
-                                    <span class="fs-4 fw-bold text-success">£{{ number_format($schedule->price, 0) }}</span>
+                                    <span class="text-muted small d-block" style="font-size: 0.75rem;">From</span>
+                                    <span class="fs-4 text-success" style="font-weight: 800;">£{{ number_format($schedule->price, 0) }}</span>
+                                    <span class="text-muted small" style="font-size: 0.75rem;">PP</span>
                                 </div>
-                                <div class="text-end">
-                                    <span class="badge bg-{{ $schedule->status === 'Available' ? 'success' : ($schedule->status === 'Filling Fast' ? 'warning' : 'danger') }} d-block mb-2">{{ $schedule->status }}</span>
-                                    <a href="{{ route('package.show', $schedule->package->slug) }}?month={{ strtolower($monthName) }}" class="btn btn-warning btn-sm fw-semibold">View Details</a>
-                                </div>
+
+                                <a href="{{ route('package.show', $package->slug) }}?month={{ strtolower($monthName) }}" class="btn btn-success px-3 fw-semibold shadow-sm btn-sm py-2">
+                                    View Details <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             @empty
                 <div class="col-12 text-center py-5">
-                    <div class="text-muted fs-4 mb-3">No packages are scheduled for {{ $monthName }} at the moment.</div>
-                    <a href="{{ url('/') }}" class="btn btn-primary">Return Home</a>
+                    <div class="text-muted fs-4 mb-4">No packages are scheduled for {{ $monthName }} at the moment.</div>
+                    <a href="{{ url('/') }}" class="btn btn-success px-4 py-2.5 fw-semibold shadow-sm">Return Home</a>
                 </div>
             @endforelse
         </div>
     </div>
 </section>
+
+<style>
+.package-card-layout {
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease;
+}
+.package-card-layout:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
+}
+.package-thumb {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.package-card-layout:hover .package-thumb {
+    transform: scale(1.08);
+}
+.package-title a {
+    transition: color 0.2s ease;
+}
+.package-title a:hover {
+    color: #198754 !important;
+}
+</style>
 @endsection

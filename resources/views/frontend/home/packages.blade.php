@@ -21,12 +21,14 @@
                                 </span>
                             @endif
 
-                            <img
-                                loading="lazy"
-                                src="{{ $package->getFirstMediaUrl('packages') ?: 'https://placehold.co/600x260?text=Package' }}"
-                                alt="{{ $package->title }}"
-                                class="w-100 package-thumb"
-                            >
+                            <a href="{{ route('package.show', $package->slug) }}" class="d-block w-100 h-100">
+                                <img
+                                    loading="lazy"
+                                    src="{{ $package->getFirstMediaUrl('packages') ?: 'https://placehold.co/600x260?text=Package' }}"
+                                    alt="{{ $package->title }}"
+                                    class="w-100 package-thumb"
+                                >
+                            </a>
                         </div>
 
                         {{-- Card Details --}}
