@@ -27,6 +27,8 @@ class AdminadminPanelProvider extends PanelProvider
             ->id('benops')
             ->path('admin')
             ->login()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('10s')
             ->brandName('Makkah Gateway CMS')
             ->brandLogo(asset('images/logo-makkah.png'))
             ->colors([

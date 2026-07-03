@@ -48,6 +48,19 @@ class ChatApiController extends Controller
             }
         }
 
+        // 2. Save to database notifications for Filament bell & toasts
+        try {
+            $adminsAndSupport = User::whereIn('role', ['Super Admin', 'Manager', 'Support Staff'])->get();
+            \Filament\Notifications\Notification::make()
+                ->title('New Live Chat Started')
+                ->body("Visitor {$session->visitor_name} started a live chat.")
+                ->icon('heroicon-o-chat-bubble-left-right')
+                ->iconColor('info')
+                ->sendToDatabase($adminsAndSupport);
+        } catch (\Exception $e) {
+            logger('Database notification failed: ' . $e->getMessage());
+        }
+
         // 2. Dispatch multi-email notifications
         $emails = collect([$settings->email ?? 'info@makkahgateway.co.uk']);
         if ($settings && !empty($settings->notification_emails)) {

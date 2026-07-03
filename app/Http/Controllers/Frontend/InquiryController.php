@@ -43,6 +43,19 @@ class InquiryController extends Controller
             }
         }
 
+        // 2. Save to database notifications for Filament bell & toasts
+        try {
+            $admins = \App\Models\User::whereIn('role', ['Super Admin', 'Manager'])->get();
+            \Filament\Notifications\Notification::make()
+                ->title('New Inquiry Submitted')
+                ->body("Lead from {$inquiry->name} (" . ($inquiry->city ?? 'UK') . ")")
+                ->icon('heroicon-o-document-text')
+                ->iconColor('success')
+                ->sendToDatabase($admins);
+        } catch (\Exception $e) {
+            logger('Database notification failed: ' . $e->getMessage());
+        }
+
         // 2. Dispatch multi-email notifications
         $emails = collect([$settings->email ?? 'info@makkahgateway.co.uk']);
         if ($settings && !empty($settings->notification_emails)) {
