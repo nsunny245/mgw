@@ -1,4 +1,14 @@
 <div id="mg-chat-widget" class="mg-chat-widget">
+    <!-- Chat Starter Callout -->
+    <div id="chat-starter-callout" class="chat-starter-callout shadow-lg d-none">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-2" style="font-size: 0.55rem; width: 0.5em; height: 0.5em;" id="chat-callout-close-btn" aria-label="Close"></button>
+        <div class="d-flex align-items-center mb-1.5 gap-2">
+            <span class="online-indicator" style="width: 7px; height: 7px; background-color: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);"></span>
+            <span class="fw-bold text-dark" style="font-size: 0.8rem; letter-spacing: 0.2px;">Makkah Gateway Support</span>
+        </div>
+        <div class="text-secondary" style="font-size: 0.82rem; line-height: 1.3;">Have a question? Ask us anything here! 👋</div>
+    </div>
+
     <!-- Chat Toggle Button -->
     <button id="chat-toggle-btn" class="chat-toggle-btn shadow-lg">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
@@ -130,6 +140,29 @@
     align-self: flex-end;
     border-bottom-right-radius: 2px;
 }
+.chat-starter-callout {
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    width: 250px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    padding: 14px 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    animation: chatBounceFloat 2.5s infinite ease-in-out;
+    cursor: pointer;
+    z-index: 9999;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+@keyframes chatBounceFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+.chat-starter-callout:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
 </style>
 
 <script>
@@ -137,6 +170,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatToggleBtn = document.getElementById('chat-toggle-btn');
     const chatCloseBtn = document.getElementById('chat-close-btn');
     const chatWindow = document.getElementById('chat-window');
+    const starterCallout = document.getElementById('chat-starter-callout');
+    const calloutCloseBtn = document.getElementById('chat-callout-close-btn');
     
     const preChatContainer = document.getElementById('pre-chat-form-container');
     const conversationContainer = document.getElementById('chat-conversation-container');
@@ -148,10 +183,37 @@ document.addEventListener('DOMContentLoaded', function() {
     let activeSessionId = localStorage.getItem('mg_chat_session_id');
     let pollInterval = null;
 
+    // Show starter callout after 3 seconds if conditions are met
+    setTimeout(() => {
+        if (!activeSessionId && 
+            chatWindow.classList.contains('d-none') && 
+            sessionStorage.getItem('mg_chat_callout_closed') !== 'true') {
+            starterCallout.classList.remove('d-none');
+        }
+    }, 3000);
+
+    // Callout click opens the chat window
+    starterCallout.addEventListener('click', function(e) {
+        // Prevent trigger if they clicked the close button
+        if (e.target.closest('#chat-callout-close-btn')) return;
+        
+        starterCallout.classList.add('d-none');
+        chatWindow.classList.remove('d-none');
+        initializeChatInterface();
+    });
+
+    // Close button on callout dismisses it
+    calloutCloseBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        starterCallout.classList.add('d-none');
+        sessionStorage.setItem('mg_chat_callout_closed', 'true');
+    });
+
     // Toggle Chat visibility
     chatToggleBtn.addEventListener('click', function() {
         chatWindow.classList.toggle('d-none');
         if (!chatWindow.classList.contains('d-none')) {
+            starterCallout.classList.add('d-none');
             initializeChatInterface();
         } else {
             clearInterval(pollInterval);
