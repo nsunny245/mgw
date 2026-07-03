@@ -61,3 +61,24 @@ Route::get('/run-ga-setup', function () {
     \Illuminate\Support\Facades\Artisan::call('view:clear');
     return 'Database migrated, Google Analytics & GTM successfully activated on live site!';
 });
+
+Route::get('/debug-notifications', function () {
+    $notificationsCount = \DB::table('notifications')->count();
+    $inquiriesCount = \App\Models\Inquiry::count();
+    $usersCount = \App\Models\User::count();
+    
+    // Read the last 20 lines of laravel log
+    $logFile = storage_path('logs/laravel.log');
+    $logs = 'Log file not found.';
+    if (file_exists($logFile)) {
+        $file = file($logFile);
+        $logs = implode("", array_slice($file, -20));
+    }
+    
+    return response()->json([
+        'notifications_count' => $notificationsCount,
+        'inquiries_count' => $inquiriesCount,
+        'users_count' => $usersCount,
+        'recent_logs' => $logs
+    ]);
+});
