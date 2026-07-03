@@ -101,9 +101,10 @@ class ChatApiController extends Controller
         ]);
 
         $settings = \App\Models\Setting::first();
+        $session = ChatSession::find($request->chat_session_id);
+
         if ($settings && !empty($settings->pusher_app_key)) {
             try {
-                $session = ChatSession::find($request->chat_session_id);
                 event(new \App\Events\NewChatBroadcast([
                     'name' => $session->visitor_name,
                     'message' => $message->message,
@@ -111,6 +112,38 @@ class ChatApiController extends Controller
                 ]));
             } catch (\Exception $e) {
                 logger('Broadcasting chat message failed: ' . $e->getMessage());
+            }
+        }
+
+        // 1. Save to database notifications for Filament bell & toasts
+        try {
+            $users = User::all();
+            \Filament\Notifications\Notification::make()
+                ->title('New Chat Message Received')
+                ->body("{$session->visitor_name}: \"{$message->message}\"")
+                ->icon('heroicon-o-chat-bubble-left')
+                ->iconColor('info')
+                ->sendToDatabase($users);
+        } catch (\Exception $e) {
+            logger('Database notification failed: ' . $e->getMessage());
+        }
+
+        // 2. Dispatch multi-email notifications
+        $emails = collect([$settings->email ?? 'info@makkahgateway.co.uk']);
+        if ($settings && !empty($settings->notification_emails)) {
+            $additionalEmails = array_filter(array_map('trim', explode(',', $settings->notification_emails)));
+            $emails = $emails->merge($additionalEmails)->unique();
+        }
+
+        foreach ($emails as $email) {
+            try {
+                \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\AdminNotificationMail('New Chat Message Received', [
+                    'visitor_name' => $session->visitor_name,
+                    'message' => $message->message,
+                    'action' => 'Visit your admin panel to reply to this message.',
+                ]));
+            } catch (\Exception $e) {
+                logger('Chat message email notification failed for ' . $email . ': ' . $e->getMessage());
             }
         }
 
