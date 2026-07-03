@@ -36,7 +36,10 @@ class CalendarController extends Controller
         $overriddenPackageIds = $dbSchedules->pluck('package_id')->toArray();
 
         $yearRoundPackages = \App\Models\Package::with('category')
-            ->where('available_all_year', true)
+            ->where(function ($query) use ($monthName) {
+                $query->where('available_all_year', true)
+                      ->orWhere('month', $monthName);
+            })
             ->where('status', '!=', 'Sold Out')
             ->get();
 

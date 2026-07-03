@@ -25,11 +25,24 @@ class Package extends Model implements HasMedia
         'departure_city',
         'featured',
         'available_all_year',
+        'month',
         'status',
         'category_id',
         'meta_title',
         'meta_description',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::saving(function ($package) {
+            if ($package->month === 'All Year Round' || empty($package->month)) {
+                $package->available_all_year = true;
+            } else {
+                $package->available_all_year = false;
+            }
+        });
+    }
 
     public function sluggable(): array
     {

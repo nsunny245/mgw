@@ -108,3 +108,29 @@ footer:last-of-type { margin-bottom: 0 !important; }
         display: block !important;
     }
 }
+
+/* Premium Shared Package Cards */
+.package-card-layout {
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease;
+}
+.package-card-layout:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
+}
+.package-thumb {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.package-card-layout:hover .package-thumb {
+    transform: scale(1.08);
+}
+.package-title a {
+    transition: color 0.2s ease;
+}
+.package-title a:hover {
+    color: #198754 !important;
+}

@@ -50,9 +50,25 @@ class PackageResource extends Resource
                         'Sold Out' => 'Sold Out',
                     ])->default('Available'),
                     Forms\Components\Toggle::make('featured'),
-                    Forms\Components\Toggle::make('available_all_year')
-                        ->label('Available All Year Round')
-                        ->default(true),
+                    Forms\Components\Select::make('month')
+                        ->label('Availability / Scheduled Month')
+                        ->options([
+                            'All Year Round' => 'All Year Round',
+                            'January' => 'January',
+                            'February' => 'February',
+                            'March' => 'March',
+                            'April' => 'April',
+                            'May' => 'May',
+                            'June' => 'June',
+                            'July' => 'July',
+                            'August' => 'August',
+                            'September' => 'September',
+                            'October' => 'October',
+                            'November' => 'November',
+                            'December' => 'December',
+                        ])
+                        ->default('All Year Round')
+                        ->required(),
                 ])->columns(2),
             Forms\Components\Section::make('SEO')
                 ->schema([
