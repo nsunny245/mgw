@@ -31,7 +31,6 @@ class PackageResource extends Resource
                     Forms\Components\TextInput::make('title')->required()->maxLength(255),
                     SpatieMediaLibraryFileUpload::make('thumbnail')->collection('packages')->image()->imageEditor(),
                     SpatieMediaLibraryFileUpload::make('gallery')->collection('gallery')->multiple()->image()->imageEditor()->label('Hotel Gallery Pictures'),
-                    Forms\Components\Select::make('category_id')->relationship('category', 'name')->searchable(),
                     Forms\Components\Textarea::make('short_description'),
                     Forms\Components\RichEditor::make('description')->columnSpanFull(),
                     Forms\Components\TextInput::make('price')->numeric(),
@@ -49,6 +48,9 @@ class PackageResource extends Resource
                         'Filling Fast' => 'Filling Fast',
                         'Sold Out' => 'Sold Out',
                     ])->default('Available'),
+                    Forms\Components\Select::make('category_id')
+                        ->relationship('category', 'name')
+                        ->required(),
                     Forms\Components\Toggle::make('featured')
                         ->label('Show on Homepage')
                         ->helperText('Toggle this to display this package on the homepage.')
