@@ -24,11 +24,11 @@
         {{-- Card Details --}}
         <div class="p-4 d-flex flex-column justify-content-between" style="min-height: 240px;">
             <div>
-                <h5 class="fw-bold mb-2 text-dark package-title" style="font-size: 1.15rem; line-height: 1.4;">
+                <h2 class="fw-bold mb-2 text-dark package-title" style="font-size: 1.15rem; line-height: 1.4;">
                     <a href="{{ route('package.show', $package->slug) }}" class="text-decoration-none text-dark hover-success">
                         {{ $package->title }}
                     </a>
-                </h5>
+                </h2>
                 
                 {{-- Hotels description --}}
                 @if(!empty($package->makkah_hotel) || !empty($package->madinah_hotel))
@@ -44,10 +44,18 @@
 
                 {{-- Features badges --}}
                 <div class="d-flex justify-content-between gap-1 text-secondary mb-4 bg-light py-2 px-3 rounded-3" style="font-size: 0.78rem; font-weight: 500;">
-                    <span class="d-flex align-items-center gap-1"><i class="bi bi-airplane-fill text-success"></i> Flights</span>
-                    <span class="d-flex align-items-center gap-1"><i class="bi bi-building-fill text-success"></i> Hotels</span>
-                    <span class="d-flex align-items-center gap-1"><i class="bi bi-file-earmark-text-fill text-success"></i> Visa</span>
-                    <span class="d-flex align-items-center gap-1"><i class="bi bi-bus-front-fill text-success"></i> Trans</span>
+                    <span class="d-flex align-items-center gap-1" style="{{ $package->include_flights ? '' : 'text-decoration: line-through; opacity: 0.5;' }}">
+                        <i class="bi bi-airplane-fill {{ $package->include_flights ? 'text-success' : 'text-muted' }}"></i> Flights
+                    </span>
+                    <span class="d-flex align-items-center gap-1" style="{{ $package->include_hotels ? '' : 'text-decoration: line-through; opacity: 0.5;' }}">
+                        <i class="bi bi-building-fill {{ $package->include_hotels ? 'text-success' : 'text-muted' }}"></i> Hotels
+                    </span>
+                    <span class="d-flex align-items-center gap-1">
+                        <i class="bi bi-file-earmark-text-fill text-success"></i> Visa
+                    </span>
+                    <span class="d-flex align-items-center gap-1" style="{{ $package->include_transport ? '' : 'text-decoration: line-through; opacity: 0.5;' }}">
+                        <i class="bi bi-bus-front-fill {{ $package->include_transport ? 'text-success' : 'text-muted' }}"></i> Trans
+                    </span>
                 </div>
             </div>
 

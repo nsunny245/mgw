@@ -49,7 +49,19 @@ class PackageResource extends Resource
                         'Filling Fast' => 'Filling Fast',
                         'Sold Out' => 'Sold Out',
                     ])->default('Available'),
-                    Forms\Components\Toggle::make('featured'),
+                    Forms\Components\Toggle::make('featured')
+                        ->label('Show on Homepage')
+                        ->helperText('Toggle this to display this package on the homepage.')
+                        ->default(false),
+                    Forms\Components\Toggle::make('include_flights')
+                        ->label('Include Flights')
+                        ->default(true),
+                    Forms\Components\Toggle::make('include_hotels')
+                        ->label('Include Hotels')
+                        ->default(true),
+                    Forms\Components\Toggle::make('include_transport')
+                        ->label('Include Transport')
+                        ->default(true),
                     Forms\Components\Select::make('month')
                         ->label('Availability / Scheduled Month')
                         ->options([

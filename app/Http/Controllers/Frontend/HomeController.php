@@ -21,7 +21,7 @@ class HomeController extends Controller
         SEOTools::opengraph()->addImage(asset('frontend/images/hero-bg.png'));
         SEOTools::twitter()->setSite('@makkahgateway');
 
-        $featuredPackages = Package::where('featured', 1)->latest()->take(6)->get();
+        $featuredPackages = Package::where('featured', 1)->latest()->take(9)->get();
         $cities = City::latest()->take(6)->get();
         $allCities = City::orderBy('name')->get();
         $blogs = Blog::latest()->take(3)->get();
