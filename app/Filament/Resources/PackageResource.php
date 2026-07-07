@@ -64,6 +64,7 @@ class PackageResource extends Resource
                         ->default(true),
                     Forms\Components\Select::make('month')
                         ->label('Availability / Scheduled Month')
+                        ->multiple()
                         ->options([
                             'All Year Round' => 'All Year Round',
                             'January' => 'January',
@@ -79,8 +80,8 @@ class PackageResource extends Resource
                             'November' => 'November',
                             'December' => 'December',
                         ])
-                        ->default('All Year Round')
-                        ->required(),
+                        ->default([])
+                        ->nullable(),
                 ])->columns(2),
             Forms\Components\Section::make('SEO')
                 ->schema([

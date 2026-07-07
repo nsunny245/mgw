@@ -38,7 +38,8 @@ class CalendarController extends Controller
         $yearRoundPackages = \App\Models\Package::with('category')
             ->where(function ($query) use ($monthName) {
                 $query->where('available_all_year', true)
-                      ->orWhere('month', $monthName);
+                      ->orWhere('month', $monthName)
+                      ->orWhereJsonContains('month', $monthName);
             })
             ->where('status', '!=', 'Sold Out')
             ->get();

@@ -35,14 +35,31 @@ class Package extends Model implements HasMedia
         'meta_description',
     ];
 
+    protected $casts = [
+        'month' => 'array',
+        'featured' => 'boolean',
+        'include_flights' => 'boolean',
+        'include_hotels' => 'boolean',
+        'include_transport' => 'boolean',
+    ];
+
     protected static function boot()
     {
         parent::boot();
         static::saving(function ($package) {
-            if ($package->month === 'All Year Round' || empty($package->month)) {
-                $package->available_all_year = true;
+            $months = $package->month;
+            if (is_array($months)) {
+                if (in_array('All Year Round', $months) || empty($months)) {
+                    $package->available_all_year = true;
+                } else {
+                    $package->available_all_year = false;
+                }
             } else {
-                $package->available_all_year = false;
+                if ($months === 'All Year Round' || empty($months)) {
+                    $package->available_all_year = true;
+                } else {
+                    $package->available_all_year = false;
+                }
             }
         });
     }
