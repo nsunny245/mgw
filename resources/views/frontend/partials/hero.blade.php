@@ -55,8 +55,9 @@
                                 <option value="8+">8+</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <input type="date" name="travel_date" class="form-control" placeholder="Travel Date" required>
+                        <div class="mb-3 position-relative">
+                            <input type="date" name="travel_date" class="form-control pe-5" placeholder="Travel Date" required>
+                            <i class="bi bi-calendar3 text-muted position-absolute end-0 top-50 translate-middle-y me-3" style="pointer-events: none; z-index: 5;"></i>
                         </div>
                         <button type="submit" class="btn btn-success w-100 fw-bold">GET BEST DEAL NOW</button>
                         <p class="small text-muted text-center mb-0 mt-3">Your information is safe with us.</p>
