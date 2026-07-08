@@ -89,6 +89,8 @@ class SettingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn (\App\Models\Setting $record) => $record->id !== 1),
             ]);
     }
 
