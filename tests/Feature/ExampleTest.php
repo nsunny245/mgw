@@ -260,11 +260,10 @@ class ExampleTest extends TestCase
         ]);
     }
 
-    public function test_chatbot_widget_renders_on_homepage(): void
+    public function test_tawk_to_widget_renders_on_homepage(): void
     {
         $response = $this->get('/');
-        $response->assertSee('id="mg-chat-widget"', false);
-        $response->assertSee('Makkah Gateway Support');
+        $response->assertSee('embed.tawk.to/66aa3d9832dca6db2cb80430', false);
     }
 
     public function test_terms_page_loads_successfully(): void
