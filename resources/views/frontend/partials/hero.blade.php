@@ -25,25 +25,25 @@
                     <form action="{{ route('inquiry.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                            <input type="text" name="name" class="form-control" placeholder="Full Name *" required>
                         </div>
                         <div class="mb-3">
-                            <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+                            <input type="text" name="phone" class="form-control" placeholder="Phone Number *" required>
                         </div>
                         <div class="mb-3">
-                            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                            <input type="email" name="email" class="form-control" placeholder="Email Address *" required>
                         </div>
                         <div class="mb-3">
-                            <select class="form-select" name="city" required>
-                                <option value="">Select Departure City</option>
+                            <select class="form-select" name="city">
+                                <option value="">Select Departure City (Optional)</option>
                                 @foreach($allCities as $c)
                                     <option value="{{ $c->name }}">{{ $c->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
-                            <select class="form-select" name="persons" required>
-                                <option value="">How many persons?</option>
+                            <select class="form-select" name="persons">
+                                <option value="">How many persons? (Optional)</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -56,7 +56,7 @@
                             </select>
                         </div>
                         <div class="mb-3 position-relative">
-                            <input type="date" name="travel_date" class="form-control pe-5" placeholder="Travel Date" required>
+                            <input type="date" name="travel_date" class="form-control pe-5" placeholder="Travel Date (Optional)">
                             <i class="bi bi-calendar3 text-muted position-absolute end-0 top-50 translate-middle-y me-3" style="pointer-events: none; z-index: 5;"></i>
                         </div>
                         <button type="submit" class="btn btn-success w-100 fw-bold">GET BEST DEAL NOW</button>

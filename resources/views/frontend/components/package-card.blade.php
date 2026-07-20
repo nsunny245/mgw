@@ -66,9 +66,14 @@
                     <span class="text-muted small" style="font-size: 0.75rem;">PP</span>
                 </div>
 
-                <a href="{{ route('package.show', $package->slug) }}" class="btn btn-success px-3 fw-semibold shadow-sm btn-sm py-2">
-                    View Details <i class="bi bi-arrow-right ms-1"></i>
-                </a>
+                <div class="d-flex gap-1">
+                    <a href="tel:{{ preg_replace('/[^0-9]/', '', $settings->phone ?? '02034111934') }}" class="btn btn-outline-success btn-sm py-2 px-2.5" title="Call Us">
+                        <i class="bi bi-telephone-fill"></i>
+                    </a>
+                    <a href="{{ route('package.show', $package->slug) }}" class="btn btn-success px-2.5 fw-semibold shadow-sm btn-sm py-2">
+                        View Details <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

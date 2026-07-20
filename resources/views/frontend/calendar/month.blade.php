@@ -16,20 +16,20 @@
                 <input type="hidden" name="package_type" value="Monthly page Inquiry ({{ $monthName }})">
                 <div class="row g-3 align-items-end">
                     <div class="col-lg-2 col-md-6 col-12">
-                        <label class="form-label small mb-1 fw-bold text-secondary">Full Name</label>
+                        <label class="form-label small mb-1 fw-bold text-secondary">Full Name <span class="text-danger">*</span></label>
                         <input type="text" name="name" class="form-control" placeholder="Your Name" required style="height: 46px; border-radius: 8px; border: 1px solid #d7dde5;">
                     </div>
                     <div class="col-lg-2 col-md-6 col-12">
-                        <label class="form-label small mb-1 fw-bold text-secondary">Phone Number</label>
+                        <label class="form-label small mb-1 fw-bold text-secondary">Phone Number <span class="text-danger">*</span></label>
                         <input type="text" name="phone" class="form-control" placeholder="Phone" required style="height: 46px; border-radius: 8px; border: 1px solid #d7dde5;">
                     </div>
                     <div class="col-lg-2 col-md-6 col-12">
-                        <label class="form-label small mb-1 fw-bold text-secondary">Email Address</label>
+                        <label class="form-label small mb-1 fw-bold text-secondary">Email Address <span class="text-danger">*</span></label>
                         <input type="email" name="email" class="form-control" placeholder="Email" required style="height: 46px; border-radius: 8px; border: 1px solid #d7dde5;">
                     </div>
                     <div class="col-lg-2 col-md-6 col-12">
-                        <label class="form-label small mb-1 fw-bold text-secondary">Departure City</label>
-                        <select class="form-select" name="city" required style="height: 46px; border-radius: 8px; border: 1px solid #d7dde5;">
+                        <label class="form-label small mb-1 fw-bold text-secondary">Departure City (Optional)</label>
+                        <select class="form-select" name="city" style="height: 46px; border-radius: 8px; border: 1px solid #d7dde5;">
                             <option value="">Select City</option>
                             @foreach(\App\Models\City::all() as $c)
                                 <option value="{{ $c->name }}">{{ $c->name }}</option>
@@ -37,8 +37,8 @@
                         </select>
                     </div>
                     <div class="col-lg-2 col-md-6 col-12">
-                        <label class="form-label small mb-1 fw-bold text-secondary">Persons</label>
-                        <select class="form-select" name="persons" required style="height: 46px; border-radius: 8px; border: 1px solid #d7dde5;">
+                        <label class="form-label small mb-1 fw-bold text-secondary">Persons (Optional)</label>
+                        <select class="form-select" name="persons" style="height: 46px; border-radius: 8px; border: 1px solid #d7dde5;">
                             <option value="">Persons</option>
                             @for($i = 1; $i <= 8; $i++)
                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -47,8 +47,8 @@
                         </select>
                     </div>
                     <div class="col-lg col-md-6 col-12">
-                        <label class="form-label small mb-1 fw-bold text-secondary">Travel Date</label>
-                        <input type="date" name="travel_date" class="form-control" required style="height: 46px; border-radius: 8px; border: 1px solid #d7dde5;">
+                        <label class="form-label small mb-1 fw-bold text-secondary">Travel Date (Optional)</label>
+                        <input type="date" name="travel_date" class="form-control" style="height: 46px; border-radius: 8px; border: 1px solid #d7dde5;">
                     </div>
                     <div class="col-lg-auto col-md-12 col-12">
                         <button type="submit" class="btn btn-success fw-bold w-100 px-4 text-uppercase" style="height: 46px; border-radius: 8px; font-size: 0.85rem; letter-spacing: 0.5px;">Get Quote</button>
@@ -140,9 +140,14 @@
                                     <span class="text-muted small" style="font-size: 0.75rem;">PP</span>
                                 </div>
 
-                                <a href="{{ route('package.show', $package->slug) }}?month={{ strtolower($monthName) }}" class="btn btn-success px-3 fw-semibold shadow-sm btn-sm py-2">
-                                    View Details <i class="bi bi-arrow-right ms-1"></i>
-                                </a>
+                                <div class="d-flex gap-1">
+                                    <a href="tel:{{ preg_replace('/[^0-9]/', '', $settings->phone ?? '02034111934') }}" class="btn btn-outline-success btn-sm py-2 px-2.5" title="Call Us">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                    <a href="{{ route('package.show', $package->slug) }}?month={{ strtolower($monthName) }}" class="btn btn-success px-2.5 fw-semibold shadow-sm btn-sm py-2">
+                                        View Details <i class="bi bi-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
