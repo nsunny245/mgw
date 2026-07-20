@@ -101,6 +101,7 @@
     @yield('content')
     @include('frontend.components.footer')
     @include('frontend.components.whatsapp')
+    @include('frontend.components.chatbot')
     
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">

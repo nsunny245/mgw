@@ -264,6 +264,7 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertSee('embed.tawk.to/66aa3d9832dca6db2cb80430', false);
+        $response->assertSee('id="mg-chat-widget"', false);
     }
 
     public function test_terms_page_loads_successfully(): void
