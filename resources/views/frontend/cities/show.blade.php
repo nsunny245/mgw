@@ -1,10 +1,10 @@
 @extends('frontend.layouts.app')
 
-@section('title', $city->meta_title ?? $city->name)
-@section('meta_description', $city->meta_description ?? 'Umrah packages by city')
+@section('title', $seoTitle)
+@section('meta_description', $seoDescription)
 
 @section('content')
-@include('frontend.components.breadcrumbs', ['title' => $city->name])
+@include('frontend.components.breadcrumbs', ['title' => $seoH1])
 
 {{-- Horizontal Hero Inquiry Form Card --}}
 <section class="bg-light py-4 border-bottom">
@@ -62,11 +62,23 @@
     </div>
 </section>
 
+@if($seoIntro)
+<section class="py-4 bg-light">
+    <div class="container">
+        <div class="p-4 bg-white rounded-4 shadow-sm border" style="border-color: rgba(0,0,0,0.05) !important;">
+            <div class="text-muted" style="font-size: 0.95rem; line-height: 1.6;">
+                {!! str($seoIntro)->markdown() !!}
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
 <section class="section-padding py-5 bg-white">
     <div class="container">
         <div class="text-center mb-5">
             <span class="text-success fw-bold text-uppercase tracking-wider" style="font-size: 0.85rem; letter-spacing: 2px;">Local Departures</span>
-            <h1 class="fw-bold text-dark mt-1 mb-3" style="font-size: 2.2rem;">Umrah Packages From {{ $city->name }}</h1>
+            <h2 class="fw-bold text-dark mt-1 mb-3" style="font-size: 2.2rem;">Umrah Packages From {{ $city->name }}</h2>
             <div class="text-muted lead mx-auto" style="max-width: 800px; font-size: 1rem;">{!! $city->content !!}</div>
         </div>
 
@@ -82,4 +94,28 @@
         </div>
     </div>
 </section>
+
+@if($seoFaqs && count($seoFaqs))
+<section class="py-5 bg-light border-top">
+    <div class="container" style="max-width: 800px;">
+        <h3 class="fw-bold text-center text-dark mb-4">Frequently Asked Questions (FAQ)</h3>
+        <div class="accordion shadow-sm rounded-4 overflow-hidden border" id="faqAccordion" style="border-color: rgba(0,0,0,0.05) !important;">
+            @foreach($seoFaqs as $index => $faq)
+                <div class="accordion-item border-0 border-bottom">
+                    <h2 class="accordion-header" id="faq-heading-{{ $index }}">
+                        <button class="accordion-button fw-bold text-dark {{ $index === 0 ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse-{{ $index }}" aria-expanded="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="faq-collapse-{{ $index }}" style="background-color: #fff; font-size: 0.95rem;">
+                            {{ $faq['q'] }}
+                        </button>
+                    </h2>
+                    <div id="faq-collapse-{{ $index }}" class="accordion-collapse collapse {{ $index === 0 ? 'show' : '' }}" aria-labelledby="faq-heading-{{ $index }}" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted bg-white" style="font-size: 0.9rem; line-height: 1.6;">
+                            {{ $faq['a'] }}
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 @endsection

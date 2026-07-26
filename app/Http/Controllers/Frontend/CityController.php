@@ -12,8 +12,16 @@ class CityController extends Controller
     public function show($slug)
     {
         $city = City::where('slug', $slug)->firstOrFail();
-        SEOTools::setTitle($city->meta_title ?? $city->name);
-        SEOTools::setDescription($city->meta_description ?? 'Umrah packages from UK cities');
+
+        $seoData = \App\Helpers\SeoContentHelper::getForCity($slug);
+        $seoTitle = $seoData['title'] ?? ($city->meta_title ?? $city->name);
+        $seoDescription = $seoData['description'] ?? ($city->meta_description ?? 'Umrah packages from UK cities');
+        $seoH1 = $seoData['h1'] ?? $city->name;
+        $seoIntro = $seoData['intro'] ?? null;
+        $seoFaqs = $seoData['faqs'] ?? null;
+
+        SEOTools::setTitle($seoTitle);
+        SEOTools::setDescription($seoDescription);
         SEOTools::setCanonical(url()->current());
         SEOTools::opengraph()->setUrl(url()->current());
         SEOTools::opengraph()->addProperty('type', 'website');
@@ -22,6 +30,6 @@ class CityController extends Controller
 
         $packages = Package::where('departure_city', $city->name)->latest()->get();
 
-        return view('frontend.cities.show', compact('city', 'packages'));
+        return view('frontend.cities.show', compact('city', 'packages', 'seoTitle', 'seoDescription', 'seoH1', 'seoIntro', 'seoFaqs'));
     }
 }

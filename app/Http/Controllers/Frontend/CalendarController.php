@@ -21,8 +21,15 @@ class CalendarController extends Controller
             abort(404);
         }
 
-        SEOTools::setTitle($monthName . ' Umrah Packages');
-        SEOTools::setDescription('Compare and find the best Umrah packages departing in ' . $monthName . '. Browse hotel ratings, prices, and direct departures.');
+        $seoData = \App\Helpers\SeoContentHelper::getForMonth($monthName);
+        $seoTitle = $seoData['title'] ?? ($monthName . ' Umrah Packages');
+        $seoDescription = $seoData['description'] ?? ('Compare and find the best Umrah packages departing in ' . $monthName . '. Browse hotel ratings, prices, and direct departures.');
+        $seoH1 = $seoData['h1'] ?? ($monthName . ' Packages');
+        $seoIntro = $seoData['intro'] ?? null;
+        $seoFaqs = $seoData['faqs'] ?? null;
+
+        SEOTools::setTitle($seoTitle);
+        SEOTools::setDescription($seoDescription);
         SEOTools::setCanonical(url()->current());
         SEOTools::opengraph()->setUrl(url()->current());
         SEOTools::opengraph()->addProperty('type', 'website');
@@ -61,6 +68,6 @@ class CalendarController extends Controller
             }
         }
 
-        return view('frontend.calendar.month', compact('monthName', 'schedules'));
+        return view('frontend.calendar.month', compact('monthName', 'schedules', 'seoTitle', 'seoDescription', 'seoH1', 'seoIntro', 'seoFaqs'));
     }
 }

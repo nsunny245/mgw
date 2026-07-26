@@ -13,8 +13,15 @@ class CategoryController extends Controller
     {
         $category = Category::where('slug', $slug)->firstOrFail();
 
-        SEOTools::setTitle($category->name);
-        SEOTools::setDescription('Browse ' . $category->name . ' for high quality Umrah packages.');
+        $seoData = \App\Helpers\SeoContentHelper::getForCategory($slug);
+        $seoTitle = $seoData['title'] ?? ($category->meta_title ?? $category->name);
+        $seoDescription = $seoData['description'] ?? ($category->meta_description ?? 'Browse ' . $category->name . ' for high quality Umrah packages.');
+        $seoH1 = $seoData['h1'] ?? $category->name;
+        $seoIntro = $seoData['intro'] ?? null;
+        $seoFaqs = $seoData['faqs'] ?? null;
+
+        SEOTools::setTitle($seoTitle);
+        SEOTools::setDescription($seoDescription);
         SEOTools::setCanonical(url()->current());
         SEOTools::opengraph()->setUrl(url()->current());
         SEOTools::opengraph()->addProperty('type', 'website');
@@ -23,6 +30,6 @@ class CategoryController extends Controller
 
         $packages = Package::where('category_id', $category->id)->latest()->get();
 
-        return view('frontend.categories.show', compact('category', 'packages'));
+        return view('frontend.categories.show', compact('category', 'packages', 'seoTitle', 'seoDescription', 'seoH1', 'seoIntro', 'seoFaqs'));
     }
 }
