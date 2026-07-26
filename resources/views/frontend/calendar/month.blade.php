@@ -91,7 +91,7 @@
                                 <img
                                     loading="lazy"
                                     src="{{ \App\Helpers\ImageHelper::webp($package->getFirstMediaUrl('packages')) ?: 'https://placehold.co/600x260?text=Package' }}"
-                                    alt="{{ $package->title }}"
+                                    alt="{{ $package->thumbnail_alt ?? $package->title }}"
                                     class="w-100 package-thumb"
                                 >
                             </a>

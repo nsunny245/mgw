@@ -16,6 +16,7 @@ class Blog extends Model implements HasMedia
         'title',
         'slug',
         'content',
+        'thumbnail_alt',
         'meta_title',
         'meta_description',
     ];

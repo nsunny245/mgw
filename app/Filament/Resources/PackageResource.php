@@ -30,6 +30,10 @@ class PackageResource extends Resource
                 ->schema([
                     Forms\Components\TextInput::make('title')->required()->maxLength(255),
                     SpatieMediaLibraryFileUpload::make('thumbnail')->collection('packages')->image()->imageEditor(),
+                    Forms\Components\TextInput::make('thumbnail_alt')
+                        ->label('Thumbnail ALT Text')
+                        ->placeholder('SEO descriptive text for the thumbnail image')
+                        ->maxLength(255),
                     SpatieMediaLibraryFileUpload::make('gallery')->collection('gallery')->multiple()->image()->imageEditor()->label('Hotel Gallery Pictures'),
                     Forms\Components\Textarea::make('short_description'),
                     Forms\Components\RichEditor::make('description')->columnSpanFull(),

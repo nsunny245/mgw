@@ -27,6 +27,10 @@ class BlogResource extends Resource
         return $form->schema([
             Forms\Components\TextInput::make('title')->required(),
             SpatieMediaLibraryFileUpload::make('thumbnail')->collection('blogs')->image(),
+            Forms\Components\TextInput::make('thumbnail_alt')
+                ->label('Thumbnail ALT Text')
+                ->placeholder('SEO descriptive text for the blog image')
+                ->maxLength(255),
             Forms\Components\RichEditor::make('content')->columnSpanFull(),
             Forms\Components\TextInput::make('meta_title'),
             Forms\Components\Textarea::make('meta_description'),

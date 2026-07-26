@@ -24,6 +24,7 @@ class Package extends Model implements HasMedia
         'madinah_hotel',
         'departure_city',
         'featured',
+        'thumbnail_alt',
         'include_flights',
         'include_hotels',
         'include_transport',

@@ -162,7 +162,7 @@
 
                     <!-- Package Image -->
                     <div class="mb-5">
-                        <img loading="lazy" src="{{ \App\Helpers\ImageHelper::webp($package->getFirstMediaUrl('packages')) ?: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80' }}" class="img-fluid rounded-4 shadow-sm w-100" style="max-height: 480px; object-fit: cover;" alt="{{ $package->title }}">
+                        <img loading="lazy" src="{{ \App\Helpers\ImageHelper::webp($package->getFirstMediaUrl('packages')) ?: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80' }}" class="img-fluid rounded-4 shadow-sm w-100" style="max-height: 480px; object-fit: cover;" alt="{{ $package->thumbnail_alt ?? $package->title }}">
                     </div>
 
                     <!-- Description -->
