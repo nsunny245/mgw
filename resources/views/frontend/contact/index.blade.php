@@ -66,6 +66,7 @@
                     
                     <form action="{{ route('inquiry.store') }}" method="POST">
                         @csrf
+                        <div style="display:none;"><input type="text" name="fax_number" value=""></div>
                         <input type="hidden" name="package_type" value="Contact Us Submission">
                         
                         <div class="mb-3">

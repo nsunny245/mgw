@@ -13,6 +13,7 @@
             <h5 class="fw-bold text-dark mb-3"><i class="bi bi-patch-check-fill text-success me-1"></i> Get a Free Quote for {{ $category->name }} Packages</h5>
             <form action="{{ route('inquiry.store') }}" method="POST">
                 @csrf
+                <div style="display:none;"><input type="text" name="fax_number" value=""></div>
                 <input type="hidden" name="package_type" value="Category page Inquiry ({{ $category->name }})">
                 <div class="row g-3 align-items-end">
                     <div class="col-lg-2 col-md-6 col-12">

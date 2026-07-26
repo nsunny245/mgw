@@ -8,7 +8,7 @@
 
 <section class="section-padding">
     <div class="container">
-        <img src="{{ $blog->getFirstMediaUrl('blogs') ?: 'https://placehold.co/900x500?text=Blog' }}" class="img-fluid rounded mb-4" alt="{{ $blog->title }}">
+        <img src="{{ \App\Helpers\ImageHelper::webp($blog->getFirstMediaUrl('blogs')) ?: 'https://placehold.co/900x500?text=Blog' }}" class="img-fluid rounded mb-4" alt="{{ $blog->title }}">
         <h1 class="fw-bold mb-4">{{ $blog->title }}</h1>
         {!! $blog->content !!}
 
@@ -19,7 +19,7 @@
                 @foreach($relatedBlogs as $item)
                     <div class="col-lg-4 mb-4">
                         <div class="package-card">
-                            <img src="{{ $item->getFirstMediaUrl('blogs') ?: 'https://placehold.co/600x350?text=Blog' }}" class="img-fluid" alt="{{ $item->title }}">
+                            <img src="{{ \App\Helpers\ImageHelper::webp($item->getFirstMediaUrl('blogs')) ?: 'https://placehold.co/600x350?text=Blog' }}" class="img-fluid" alt="{{ $item->title }}">
                             <div class="p-3">
                                 <h6>{{ $item->title }}</h6>
                                 <a href="{{ route('blog.show', $item->slug) }}" class="btn btn-sm btn-gold mt-2">Read More</a>

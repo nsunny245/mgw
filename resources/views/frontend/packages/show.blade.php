@@ -162,7 +162,7 @@
 
                     <!-- Package Image -->
                     <div class="mb-5">
-                        <img loading="lazy" src="{{ $package->getFirstMediaUrl('packages') ?: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80' }}" class="img-fluid rounded-4 shadow-sm w-100" style="max-height: 480px; object-fit: cover;" alt="{{ $package->title }}">
+                        <img loading="lazy" src="{{ \App\Helpers\ImageHelper::webp($package->getFirstMediaUrl('packages')) ?: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80' }}" class="img-fluid rounded-4 shadow-sm w-100" style="max-height: 480px; object-fit: cover;" alt="{{ $package->title }}">
                     </div>
 
                     <!-- Description -->
@@ -312,7 +312,7 @@
                             @forelse($package->getMedia('gallery') as $media)
                                 <div class="col-4">
                                     <div class="gallery-img-container">
-                                        <img src="{{ $media->hasGeneratedConversion('webp') ? $media->getUrl('webp') : $media->getUrl() }}" alt="{{ $package->title }}" class="gallery-img">
+                                        <img src="{{ \App\Helpers\ImageHelper::webp($media->getUrl()) }}" alt="{{ $package->title }}" class="gallery-img">
                                     </div>
                                 </div>
                             @empty
@@ -405,6 +405,7 @@
                     
                     <form action="{{ route('inquiry.store') }}" method="POST">
                         @csrf
+                        <div style="display:none;"><input type="text" name="fax_number" value=""></div>
                         <!-- Link inquiry automatically to the current package -->
                         <input type="hidden" name="package_type" value="{{ $package->title }}">
                         

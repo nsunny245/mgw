@@ -17,7 +17,7 @@
                             @if(!empty($slide['link']))
                                 <a href="{{ $slide['link'] }}" target="_blank">
                             @endif
-                            <img src="{{ asset('storage/' . $slide['image']) }}" alt="{{ $slide['title'] ?? 'Airline Partner' }}" class="img-fluid partner-logo-img">
+                            <img src="{{ \App\Helpers\ImageHelper::webp(asset('storage/' . $slide['image'])) }}" alt="{{ $slide['title'] ?? 'Airline Partner' }}" class="img-fluid partner-logo-img">
                             @if(!empty($slide['link']))
                                 </a>
                             @endif

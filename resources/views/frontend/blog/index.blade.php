@@ -11,7 +11,7 @@
             @foreach($blogs as $blog)
                 <div class="col-lg-4 mb-4">
                     <div class="package-card">
-                        <img src="{{ $blog->getFirstMediaUrl('blogs') ?: 'https://placehold.co/600x350?text=Blog' }}" class="img-fluid" alt="{{ $blog->title }}">
+                        <img src="{{ \App\Helpers\ImageHelper::webp($blog->getFirstMediaUrl('blogs')) ?: 'https://placehold.co/600x350?text=Blog' }}" class="img-fluid" alt="{{ $blog->title }}">
                         <div class="p-4">
                             <h5>{{ $blog->title }}</h5>
                             <a href="{{ route('blog.show', $blog->slug) }}" class="btn btn-gold mt-3">Read More</a>

@@ -13,6 +13,12 @@ class InquiryController extends Controller
 {
     public function store(Request $request)
     {
+        // Spam protection honeypot check
+        if ($request->filled('fax_number')) {
+            logger('Spam inquiry blocked via honeypot from IP: ' . $request->ip());
+            return redirect()->back()->with('success', 'Your inquiry has been submitted successfully.');
+        }
+
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:50'],

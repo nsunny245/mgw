@@ -28,4 +28,11 @@ class Blog extends Model implements HasMedia
             ],
         ];
     }
+
+    public function registerMediaConversions(\Spatie\MediaLibrary\MediaCollections\Models\Media $media = null): void
+    {
+        $this->addMediaConversion('webp')
+            ->format('webp')
+            ->nonQueued();
+    }
 }

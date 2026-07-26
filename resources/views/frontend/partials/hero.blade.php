@@ -24,6 +24,7 @@
                     <h3 class="fw-bold text-center mb-4">Get The Best Umrah Deals!</h3>
                     <form action="{{ route('inquiry.store') }}" method="POST">
                         @csrf
+                        <div style="display:none;"><input type="text" name="fax_number" value=""></div>
                         <div class="mb-3">
                             <input type="text" name="name" class="form-control" placeholder="Full Name *" required>
                         </div>

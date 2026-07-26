@@ -13,6 +13,7 @@
             <h5 class="fw-bold text-dark mb-3"><i class="bi bi-patch-check-fill text-success me-1"></i> Get a Free Quote for {{ $monthName }} Umrah Packages</h5>
             <form action="{{ route('inquiry.store') }}" method="POST">
                 @csrf
+                <div style="display:none;"><input type="text" name="fax_number" value=""></div>
                 <input type="hidden" name="package_type" value="Monthly page Inquiry ({{ $monthName }})">
                 <div class="row g-3 align-items-end">
                     <div class="col-lg-2 col-md-6 col-12">
@@ -89,7 +90,7 @@
                             <a href="{{ route('package.show', $package->slug) }}?month={{ strtolower($monthName) }}" class="d-block w-100 h-100">
                                 <img
                                     loading="lazy"
-                                    src="{{ $package->getFirstMediaUrl('packages') ?: 'https://placehold.co/600x260?text=Package' }}"
+                                    src="{{ \App\Helpers\ImageHelper::webp($package->getFirstMediaUrl('packages')) ?: 'https://placehold.co/600x260?text=Package' }}"
                                     alt="{{ $package->title }}"
                                     class="w-100 package-thumb"
                                 >

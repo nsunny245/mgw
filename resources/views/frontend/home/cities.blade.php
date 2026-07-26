@@ -18,7 +18,7 @@
                 <div class="col-lg col-md-4 col-6">
                     <a href="{{ route('city.show', $city->slug) }}" class="text-decoration-none">
                         <div class="city-tile position-relative rounded-3 overflow-hidden border shadow-sm">
-                            <img loading="lazy" src="{{ $imageSrc }}" alt="{{ $city->name }}" class="img-fluid w-100" style="height: 120px; object-fit: cover;">
+                            <img loading="lazy" src="{{ \App\Helpers\ImageHelper::webp($imageSrc) }}" alt="{{ $city->name }}" class="img-fluid w-100" style="height: 120px; object-fit: cover;">
                             <div class="city-tile-label">{{ $city->name }}</div>
                         </div>
                     </a>
