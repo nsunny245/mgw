@@ -13,6 +13,9 @@
             <h5 class="fw-bold text-dark mb-3"><i class="bi bi-patch-check-fill text-success me-1"></i> Get a Free Quote for {{ $monthName }} Umrah Packages</h5>
             <form action="{{ route('inquiry.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="form_source" value="monthly_calendar_page">
+                <input type="hidden" name="form_id" value="monthly_calendar_form_id">
+                <input type="hidden" name="form_url" value="{{ request()->fullUrl() }}">
                 <div style="display:none;"><input type="text" name="fax_number" value=""></div>
                 <input type="hidden" name="package_type" value="Monthly page Inquiry ({{ $monthName }})">
                 <div class="row g-3 align-items-end">

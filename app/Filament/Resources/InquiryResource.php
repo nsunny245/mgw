@@ -33,6 +33,9 @@ class InquiryResource extends Resource
                     Forms\Components\TextInput::make('persons')->disabled(),
                     Forms\Components\DatePicker::make('travel_date')->disabled(),
                     Forms\Components\TextInput::make('package_type')->disabled(),
+                    Forms\Components\TextInput::make('form_id')->label('Form ID')->disabled(),
+                    Forms\Components\TextInput::make('form_source')->label('Form Source')->disabled(),
+                    Forms\Components\TextInput::make('form_url')->label('Form URL')->disabled()->columnSpanFull(),
                     Forms\Components\Textarea::make('message')->disabled()->columnSpanFull(),
                 ])->columns(2),
             Forms\Components\Section::make('CRM Workflow & Assignment')
@@ -81,6 +84,7 @@ class InquiryResource extends Resource
                 Tables\Columns\TextColumn::make('travel_date')->date()->sortable(),
                 Tables\Columns\TextColumn::make('package_type'),
                 Tables\Columns\TextColumn::make('assignedTo.name')->label('Staff'),
+                Tables\Columns\TextColumn::make('form_source')->label('Source')->sortable()->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([

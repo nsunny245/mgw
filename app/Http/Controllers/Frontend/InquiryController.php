@@ -28,7 +28,12 @@ class InquiryController extends Controller
             'travel_date' => ['nullable', 'date'],
             'package_type' => ['nullable', 'string', 'max:255'],
             'message' => ['nullable', 'string'],
+            'form_id' => ['nullable', 'string', 'max:255'],
+            'form_source' => ['nullable', 'string', 'max:255'],
+            'form_url' => ['nullable', 'string'],
         ]);
+
+        $data['form_url'] = $request->input('form_url') ?? url()->previous();
 
         $supportStaff = \App\Models\User::where('role', 'Support Staff')->first();
         if ($supportStaff) {
@@ -49,6 +54,10 @@ class InquiryController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Your inquiry has been submitted successfully.');
+        if ($request->input('form_source') === 'hero_booking_form') {
+            return redirect()->back()->with('success_hero', 'Your request has been received. Our team will contact you shortly.');
+        }
+
+        return redirect()->route('thankyou');
     }
 }

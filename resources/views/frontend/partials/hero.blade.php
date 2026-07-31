@@ -20,50 +20,64 @@
             </div>
 
             <div class="col-lg-5 offset-lg-1 hero-right">
-                <div class="quote-form-card shadow-lg bg-white rounded-4" id="quoteForm">
-                    <h3 class="fw-bold text-center mb-4">Get The Best Umrah Deals!</h3>
-                    <form action="{{ route('inquiry.store') }}" method="POST">
-                        @csrf
-                        <div style="display:none;"><input type="text" name="fax_number" value=""></div>
-                        <div class="mb-3">
-                            <input type="text" name="name" class="form-control" placeholder="Full Name *" required>
+                @if(session('success_hero'))
+                    <div class="quote-form-card shadow-lg bg-white rounded-4 d-flex flex-column justify-content-center align-items-center text-center p-4" style="min-height: 480px;">
+                        <div class="mb-4 text-success">
+                            <i class="bi bi-check-circle-fill" style="font-size: 4rem;"></i>
                         </div>
-                        <div class="mb-3">
-                            <input type="text" name="phone" class="form-control" placeholder="Phone Number *" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" name="email" class="form-control" placeholder="Email Address *" required>
-                        </div>
-                        <div class="mb-3">
-                            <select class="form-select" name="city">
-                                <option value="">Select Departure City (Optional)</option>
-                                @foreach($allCities as $c)
-                                    <option value="{{ $c->name }}">{{ $c->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <select class="form-select" name="persons">
-                                <option value="">How many persons? (Optional)</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="8+">8+</option>
-                            </select>
-                        </div>
-                        <div class="mb-3 position-relative">
-                            <input type="date" name="travel_date" class="form-control pe-5" placeholder="Travel Date (Optional)">
-                            <i class="bi bi-calendar3 text-muted position-absolute end-0 top-50 translate-middle-y me-3" style="pointer-events: none; z-index: 5;"></i>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100 fw-bold">GET BEST DEAL NOW</button>
-                        <p class="small text-muted text-center mb-0 mt-3">Your information is safe with us.</p>
-                    </form>
-                </div>
+                        <h3 class="fw-bold mb-2">Thank You!</h3>
+                        <p class="text-muted mb-0 px-3">{{ session('success_hero') }}</p>
+                        <a href="{{ url('/') }}" class="btn btn-outline-success mt-4 fw-bold px-4">Submit Another Query</a>
+                    </div>
+                @else
+                    <div class="quote-form-card shadow-lg bg-white rounded-4" id="quoteForm">
+                        <h3 class="fw-bold text-center mb-4">Get The Best Umrah Deals!</h3>
+                        <form action="{{ route('inquiry.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="form_source" value="hero_booking_form">
+                            <input type="hidden" name="form_id" value="hero_booking_form_id">
+                            <input type="hidden" name="form_url" value="{{ request()->fullUrl() }}">
+                            <div style="display:none;"><input type="text" name="fax_number" value=""></div>
+                            <div class="mb-3">
+                                <input type="text" name="name" class="form-control" placeholder="Full Name *" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="phone" class="form-control" placeholder="Phone Number *" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" name="email" class="form-control" placeholder="Email Address *" required>
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-select" name="city">
+                                    <option value="">Select Departure City (Optional)</option>
+                                    @foreach($allCities as $c)
+                                        <option value="{{ $c->name }}">{{ $c->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-select" name="persons">
+                                    <option value="">How many persons? (Optional)</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="8+">8+</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 position-relative">
+                                <input type="date" name="travel_date" class="form-control pe-5" placeholder="Travel Date (Optional)">
+                                <i class="bi bi-calendar3 text-muted position-absolute end-0 top-50 translate-middle-y me-3" style="pointer-events: none; z-index: 5;"></i>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100 fw-bold">GET BEST DEAL NOW</button>
+                            <p class="small text-muted text-center mb-0 mt-3">Your information is safe with us.</p>
+                        </form>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

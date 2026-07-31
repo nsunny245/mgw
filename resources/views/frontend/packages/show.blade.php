@@ -405,6 +405,9 @@
                     
                     <form action="{{ route('inquiry.store') }}" method="POST">
                         @csrf
+                        <input type="hidden" name="form_source" value="package_detail_page">
+                        <input type="hidden" name="form_id" value="package_detail_form_id">
+                        <input type="hidden" name="form_url" value="{{ request()->fullUrl() }}">
                         <div style="display:none;"><input type="text" name="fax_number" value=""></div>
                         <!-- Link inquiry automatically to the current package -->
                         <input type="hidden" name="package_type" value="{{ $package->title }}">

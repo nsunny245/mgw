@@ -24,6 +24,9 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/about-us', [PageController::class, 'show'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/inquiry-store', [InquiryController::class, 'store'])->name('inquiry.store');
+Route::get('/thank-you', function () {
+    return view('frontend.pages.thankyou');
+})->name('thankyou');
 Route::get('/customer/{id}/invoice', [HomeController::class, 'invoice'])->name('customer.invoice');
 Route::get('/customer/{id}/atol', [HomeController::class, 'atol'])->name('customer.atol');
 

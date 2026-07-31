@@ -8,27 +8,6 @@
     <meta name="description" content="@yield('meta_description')">
     {!! SEO::generate() !!}
 
-    @if(!empty($settings->google_tag_manager_id))
-        <!-- Google Tag Manager -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','{{ $settings->google_tag_manager_id }}');</script>
-        <!-- End Google Tag Manager -->
-    @endif
-
-    @if(!empty($settings->google_analytics_id))
-        <!-- Google Analytics GA4 -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $settings->google_analytics_id }}"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '{{ $settings->google_analytics_id }}');
-        </script>
-    @endif
-
     @if(!empty($settings->google_search_console_meta))
         {!! $settings->google_search_console_meta !!}
     @endif
@@ -51,26 +30,6 @@
     fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16635373265"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-16635373265');
-    </script>
-    <!-- End Google tag (gtag.js) -->
-
-    <!-- Microsoft Clarity Code -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "vclmvmmbem");
-    </script>
-    <!-- End Microsoft Clarity Code -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -102,6 +61,88 @@
     @include('frontend.components.footer')
     @include('frontend.components.whatsapp')
 
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent-banner" class="fixed-bottom p-4 bg-white shadow-lg border d-none" style="z-index: 1050; max-width: 450px; margin-bottom: 24px; margin-left: 24px; border-radius: 16px; border-color: rgba(0,0,0,0.08) !important;">
+        <div class="d-flex align-items-start gap-3">
+            <div class="text-success fs-3"><i class="bi bi-cookie"></i></div>
+            <div>
+                <h6 class="fw-bold text-dark mb-2">We value your privacy</h6>
+                <p class="text-muted small mb-3" style="font-size: 0.8rem; line-height: 1.5;">We use cookies to enhance your browsing experience, serve personalized ads, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies as per UK standard.</p>
+                <div class="d-flex gap-2">
+                    <button id="accept-cookies" class="btn btn-success btn-sm fw-bold px-3 py-1.5" style="font-size: 0.82rem; border-radius: 8px;">Accept All</button>
+                    <button id="reject-cookies" class="btn btn-outline-secondary btn-sm fw-bold px-3 py-1.5" style="font-size: 0.82rem; border-radius: 8px;">Reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const banner = document.getElementById('cookie-consent-banner');
+        const acceptBtn = document.getElementById('accept-cookies');
+        const rejectBtn = document.getElementById('reject-cookies');
+
+        function loadTrackingScripts() {
+            // 1. Load Google Tag Manager
+            @if(!empty($settings->google_tag_manager_id))
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','{{ $settings->google_tag_manager_id }}');
+            @endif
+
+            // 2. Load Google Analytics GA4
+            @if(!empty($settings->google_analytics_id))
+                var gaScript = document.createElement('script');
+                gaScript.async = true;
+                gaScript.src = 'https://www.googletagmanager.com/gtag/js?id={{ $settings->google_analytics_id }}';
+                document.head.appendChild(gaScript);
+                
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '{{ $settings->google_analytics_id }}');
+            @endif
+
+            // 3. Load Google Ads Tag (AW-16635373265)
+            var awScript = document.createElement('script');
+            awScript.async = true;
+            awScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16635373265';
+            document.head.appendChild(awScript);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag2(){dataLayer.push(arguments);}
+            gtag2('js', new Date());
+            gtag2('config', 'AW-16635373265');
+
+            // 4. Load Microsoft Clarity Code
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "vclmvmmbem");
+        }
+
+        if (!localStorage.getItem('cookie_consent')) {
+            banner.classList.remove('d-none');
+        } else if (localStorage.getItem('cookie_consent') === 'accepted') {
+            loadTrackingScripts();
+        }
+
+        acceptBtn.addEventListener('click', function() {
+            localStorage.setItem('cookie_consent', 'accepted');
+            banner.classList.add('d-none');
+            loadTrackingScripts();
+        });
+
+        rejectBtn.addEventListener('click', function() {
+            localStorage.setItem('cookie_consent', 'rejected');
+            banner.classList.add('d-none');
+        });
+    });
+    </script>
 </body>
 </html>

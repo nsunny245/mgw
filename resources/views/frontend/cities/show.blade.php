@@ -13,6 +13,9 @@
             <h5 class="fw-bold text-dark mb-3"><i class="bi bi-patch-check-fill text-success me-1"></i> Get a Free Quote for Umrah Packages from {{ $city->name }}</h5>
             <form action="{{ route('inquiry.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="form_source" value="city_page">
+                <input type="hidden" name="form_id" value="city_form_id">
+                <input type="hidden" name="form_url" value="{{ request()->fullUrl() }}">
                 <div style="display:none;"><input type="text" name="fax_number" value=""></div>
                 <input type="hidden" name="package_type" value="City page Inquiry ({{ $city->name }})">
                 <div class="row g-3 align-items-end">

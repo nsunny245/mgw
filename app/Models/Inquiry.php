@@ -17,6 +17,9 @@ class Inquiry extends Model
         'message',
         'status',
         'assigned_to',
+        'form_id',
+        'form_source',
+        'form_url',
     ];
 
     public function assignedTo()
