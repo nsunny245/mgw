@@ -94,36 +94,45 @@
                 })(window,document,'script','dataLayer','{{ $settings->google_tag_manager_id }}');
             @endif
 
-            // 2. Load Google Analytics GA4
-            @if(!empty($settings->google_analytics_id))
-                var gaScript = document.createElement('script');
-                gaScript.async = true;
-                gaScript.src = 'https://www.googletagmanager.com/gtag/js?id={{ $settings->google_analytics_id }}';
-                document.head.appendChild(gaScript);
-                
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '{{ $settings->google_analytics_id }}');
-            @endif
+            // Initialize dataLayer and gtag function
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = window.gtag || function(){dataLayer.push(arguments);};
+            gtag('js', new Date());
 
-            // 3. Load Google Ads Tag (AW-16635373265)
+            // 2. Load Google Analytics GA4 (G-R4M4BYH4L0)
+            var gaScript = document.createElement('script');
+            gaScript.async = true;
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-R4M4BYH4L0';
+            document.head.appendChild(gaScript);
+            gtag('config', 'G-R4M4BYH4L0');
+
+            // 3. Load Google Ads Tag (AW-18354126865)
             var awScript = document.createElement('script');
             awScript.async = true;
-            awScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16635373265';
+            awScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18354126865';
             document.head.appendChild(awScript);
-            
-            window.dataLayer = window.dataLayer || [];
-            function gtag2(){dataLayer.push(arguments);}
-            gtag2('js', new Date());
-            gtag2('config', 'AW-16635373265');
+            gtag('config', 'AW-18354126865');
 
-            // 4. Load Microsoft Clarity Code
+            // Google Ads Phone Conversion Config
+            gtag('config', 'AW-18354126865/wKppCMCQ2dscEJGA969E', {
+                'phone_conversion_number': '0203 411 1934'
+            });
+
+            // Trigger request quote conversion snippet ONLY on thank you page
+            @if(request()->routeIs('thankyou'))
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-18354126865/jRxdCNeo8dscEJGA969E',
+                    'value': 1.0,
+                    'currency': 'GBP'
+                });
+            @endif
+
+            // 4. Load Microsoft Clarity Code (xu2efm7bub)
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "vclmvmmbem");
+            })(window, document, "clarity", "script", "xu2efm7bub");
         }
 
         if (!localStorage.getItem('cookie_consent')) {
