@@ -54,6 +54,32 @@ class InquiryController extends Controller
             }
         }
 
+        // 2. Dispatch multi-email notifications (exactly one clean email per address to avoid duplicates)
+        $emails = collect([$settings->email ?? 'info@makkahgateway.co.uk']);
+        if ($settings && !empty($settings->notification_emails)) {
+            $additionalEmails = array_filter(array_map('trim', explode(',', $settings->notification_emails)));
+            $emails = $emails->merge($additionalEmails)->unique();
+        }
+
+        foreach ($emails as $email) {
+            try {
+                Mail::to($email)->send(new \App\Mail\AdminNotificationMail('New Inquiry Submitted', [
+                    'name' => $inquiry->name,
+                    'phone' => $inquiry->phone,
+                    'email' => $inquiry->email,
+                    'departure_city' => $inquiry->city ?? 'UK',
+                    'persons' => $inquiry->persons ?? '1',
+                    'travel_date' => $inquiry->travel_date,
+                    'message' => $inquiry->message,
+                    'form_source' => $inquiry->form_source ?? 'General Inquiry Form',
+                    'form_url' => $inquiry->form_url ?? url()->previous(),
+                    'form_id' => $inquiry->form_id ?? 'N/A',
+                ]));
+            } catch (\Exception $e) {
+                logger('Email notification failed for ' . $email . ': ' . $e->getMessage());
+            }
+        }
+
         if ($request->input('form_source') === 'hero_booking_form') {
             return redirect()->back()->with('success_hero', 'Your request has been received. Our team will contact you shortly.');
         }
