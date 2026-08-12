@@ -1,6 +1,6 @@
 <section id="why-choose" class="section-padding bg-white pt-4 pb-4">
     <div class="container">
-        <h3 class="text-center fw-bold mb-4">Why Choose Makkah Gateway?</h3>
+        <h3 class="text-center fw-bold mb-4">Why Thousands of UK Pilgrims Trust Makkah Gateway</h3>
 
         <div class="row text-center g-3 justify-content-center">
             <div class="col-lg col-md-4 col-6">

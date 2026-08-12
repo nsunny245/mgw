@@ -282,4 +282,12 @@ class ExampleTest extends TestCase
         $response->assertSee('Disclaimer', false);
         $response->assertSee('Scope of Responsibility', false);
     }
+
+    public function test_faq_page_loads_successfully(): void
+    {
+        $response = $this->get('/faq');
+        $response->assertStatus(200);
+        $response->assertSee('Frequently Asked Questions About Umrah from the UK', false);
+        $response->assertSee('Search Umrah questions...', false);
+    }
 }

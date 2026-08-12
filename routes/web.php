@@ -42,6 +42,10 @@ Route::get('/disclaimer', function () {
     return view('frontend.pages.disclaimer');
 })->name('disclaimer');
 
+Route::get('/faq', function () {
+    return view('frontend.pages.faq');
+})->name('faq');
+
 Route::get('/ben-orbit-portal-7842/{path?}', function ($path = null) {
     return redirect('/admin' . ($path ? '/' . $path : ''));
 })->where('path', '.*');

@@ -8,8 +8,10 @@
 @include('frontend.home.carousel')
 @include('frontend.home.packages')
 @include('frontend.home.whychoose')
+@include('frontend.home.trust')
 @include('frontend.home.testimonials')
 @include('frontend.home.cities')
+@include('frontend.home.faq_preview')
 @include('frontend.home.cta')
 @include('frontend.home.blogs')
 @endsection

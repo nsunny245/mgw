@@ -23,6 +23,7 @@
                     <li><a href="#packages" class="text-white text-decoration-none">Ramadan Umrah</a></li>
                     <li><a href="{{ route('blog.index') }}" class="text-white text-decoration-none">Blog</a></li>
                     <li><a href="{{ route('contact') }}" class="text-white text-decoration-none">Contact Us</a></li>
+                    <li><a href="{{ route('faq') }}" class="text-white text-decoration-none">FAQs</a></li>
                     <li><a href="{{ route('terms') }}" class="text-white text-decoration-none">Terms & Conditions</a></li>
                     <li><a href="{{ route('disclaimer') }}" class="text-white text-decoration-none">Disclaimer</a></li>
                 </ul>

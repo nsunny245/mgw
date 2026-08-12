@@ -305,35 +305,12 @@
                         </div>
                     </div>
 
-                    <!-- Hotel Picture Gallery -->
-                    <div class="mb-5">
-                        <h4 class="fw-bold mb-4">Hotel Picture Gallery</h4>
-                        <div class="row g-3">
-                            @forelse($package->getMedia('gallery') as $media)
-                                <div class="col-4">
-                                    <div class="gallery-img-container">
-                                        <img src="{{ \App\Helpers\ImageHelper::webp($media->getUrl()) }}" alt="{{ $package->title }}" class="gallery-img">
-                                    </div>
-                                </div>
-                            @empty
-                                <div class="col-4">
-                                    <div class="gallery-img-container">
-                                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80" alt="Luxury Hotel Room" class="gallery-img">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="gallery-img-container">
-                                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80" alt="Hotel Reception" class="gallery-img">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="gallery-img-container">
-                                        <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=400&q=80" alt="Hotel Lobby" class="gallery-img">
-                                    </div>
-                                </div>
-                            @endforelse
-                        </div>
-                    </div>
+                    {{--
+                        TEMPORARILY DISABLED:
+                        Hotel/package gallery hidden from frontend at client request.
+                        Do not delete underlying image/gallery functionality.
+                        Intended to be restored later.
+                    --}}
 
                     <!-- Hotel Reviews Section -->
                     <div class="reviews-card p-4">

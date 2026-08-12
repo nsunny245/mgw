@@ -1,6 +1,7 @@
 <section class="py-4" style="background:#0e603e;">
     <div class="container">
-        <h3 class="text-center text-white fw-bold mb-3">What Our Customers Say</h3>
+        <h3 class="text-center text-white fw-bold mb-3">See Why Our Customers Recommend Makkah Gateway</h3>
+        <p class="text-center text-white-50 mx-auto mb-4" style="max-width: 800px; font-size: clamp(15px, 2vw, 18px); line-height: 1.6;">We are proud to have helped thousands of pilgrims travel to Makkah and Madinah with confidence. Here's what some of our customers have shared about their experience with Makkah Gateway.</p>
 
         <div class="row g-3">
             @forelse($testimonials as $testimonial)
