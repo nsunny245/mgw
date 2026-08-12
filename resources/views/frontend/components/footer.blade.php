@@ -5,11 +5,9 @@
                 <img loading="lazy" src="{{ asset('images/logo-footer.png') }}" alt="Makkah Gateway" height="56" class="img-fluid mb-2">
                 <p class="small mb-2">Your trusted travel partner for Umrah packages from the UK.</p>
                 <div class="d-flex gap-3 text-white fs-5">
-                    <a href="{{ !empty($settings->facebook_url) ? $settings->facebook_url : 'https://www.facebook.com/makkahgateway' }}" target="_blank" class="text-white"><i class="bi bi-facebook"></i></a>
-                    <a href="{{ !empty($settings->instagram_url) ? $settings->instagram_url : 'https://www.instagram.com/makkahgateway' }}" target="_blank" class="text-white"><i class="bi bi-instagram"></i></a>
-                    <a href="{{ !empty($settings->youtube_url) ? $settings->youtube_url : 'https://www.youtube.com/makkahgateway' }}" target="_blank" class="text-white"><i class="bi bi-youtube"></i></a>
-                    <a href="{{ !empty($settings->linkedin_url) ? $settings->linkedin_url : 'https://www.linkedin.com/company/makkahgateway' }}" target="_blank" class="text-white"><i class="bi bi-linkedin"></i></a>
-                    <a href="{{ !empty($settings->twitter_url) ? $settings->twitter_url : 'https://twitter.com/makkahgateway' }}" target="_blank" class="text-white"><i class="bi bi-twitter"></i></a>
+                    <a href="https://www.facebook.com/makkahgatewayuk" target="_blank" class="text-white"><i class="bi bi-facebook"></i></a>
+                    <a href="https://www.instagram.com/makkah_gateway/" target="_blank" class="text-white"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.youtube.com/@makkahgatewayuk" target="_blank" class="text-white"><i class="bi bi-youtube"></i></a>
                     <a href="https://wa.me/{{ $settings->whatsapp_number ?? '447380888233' }}" target="_blank" class="text-white"><i class="bi bi-whatsapp"></i></a>
                 </div>
             </div>
