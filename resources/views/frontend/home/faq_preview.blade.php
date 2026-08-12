@@ -24,12 +24,37 @@
             <!-- Right Side: 5 Accordion Questions -->
             <div class="col-lg-8">
                 @php
-                    $allFaqs = \App\Helpers\FaqHelper::getQuestions();
-                    $previewFaqs = array_slice($allFaqs, 0, 5);
+                    $previewFaqs = [
+                        [
+                            'id' => 101,
+                            'question' => 'How much does Umrah cost from the UK?',
+                            'answer' => 'The cost of Umrah from the UK depends on your travel dates, flights, hotel category, room type and length of stay. At Makkah Gateway, we offer Umrah packages from budget to 5-star options, with packages tailored to different budgets and requirements. Contact us for the latest prices and availability.'
+                        ],
+                        [
+                            'id' => 102,
+                            'question' => 'What is included in an Umrah package?',
+                            'answer' => 'Our Umrah packages can include return flights, hotel accommodation in Makkah and Madinah, private transfers and visa assistance, depending on the package selected. Meals can also be added if required for an additional charge.'
+                        ],
+                        [
+                            'id' => 103,
+                            'question' => 'Do your packages include return flights?',
+                            'answer' => 'Yes. Our Umrah packages include return flights from the UK. We offer both direct and indirect flight options from major UK airports, depending on availability and your preferred travel dates.'
+                        ],
+                        [
+                            'id' => 104,
+                            'question' => 'Can I pay for my Umrah package in instalments?',
+                            'answer' => 'Yes. Instalment payment plans are available on selected Umrah packages. The required deposit and payment schedule will depend on your package, travel date and booking conditions. Our team will explain the payment options before you confirm your booking.'
+                        ],
+                        [
+                            'id' => 105,
+                            'question' => 'Can I choose my Makkah and Madinah hotels?',
+                            'answer' => 'Yes. We offer a range of 3-star, 4-star and 5-star hotels in Makkah and Madinah. You can tell us your preferred hotel, location, star rating and budget, and we\'ll provide suitable options based on availability.'
+                        ],
+                    ];
                 @endphp
 
                 <div class="accordion accordion-custom" id="faqPreviewAccordion">
-                    @foreach($previewFaqs as $index => $faq)
+                    @foreach($previewFaqs as $faq)
                         <div class="accordion-item border mb-3 rounded-4 overflow-hidden shadow-sm" style="background: #fff; border-color: rgba(0,0,0,0.05) !important;">
                             <h2 class="accordion-header" id="heading-preview-{{ $faq['id'] }}">
                                 <button class="accordion-button collapsed fw-bold text-dark bg-white py-3 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-preview-{{ $faq['id'] }}" aria-expanded="false" aria-controls="collapse-preview-{{ $faq['id'] }}" style="font-size: 1.02rem;">

@@ -5,78 +5,97 @@
             <h3 class="fw-bold text-dark mt-1">Trusted by Pilgrims Across the UK</h3>
         </div>
 
-        <!-- Row 1: 4 Cards on Desktop -->
-        <div class="row g-4 justify-content-center mb-4">
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="card h-100 border shadow-sm rounded-4 p-4 text-center trust-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; border-color: rgba(0,0,0,0.05) !important;">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle mb-3" style="width: 60px; height: 60px;">
-                        <i class="bi bi-people-fill fs-3"></i>
+        <div class="row g-3 justify-content-center">
+            <!-- Card 1 -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border shadow-sm trust-flex-card h-100" style="transition: transform 0.2s ease, box-shadow 0.2s ease; border-color: rgba(0,0,0,0.05) !important;">
+                    <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle" style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <i class="bi bi-people-fill fs-5"></i>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">2,000+</h5>
-                    <p class="text-muted small mb-0">More than 2,000 pilgrims assisted</p>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">2,000+</h6>
+                        <small class="text-muted" style="font-size: 0.8rem; line-height: 1.2; display: block;">Pilgrims assisted</small>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="card h-100 border shadow-sm rounded-4 p-4 text-center trust-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; border-color: rgba(0,0,0,0.05) !important;">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle mb-3" style="width: 60px; height: 60px;">
-                        <i class="bi bi-star-half fs-3"></i>
+            <!-- Card 2 -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border shadow-sm trust-flex-card h-100" style="transition: transform 0.2s ease, box-shadow 0.2s ease; border-color: rgba(0,0,0,0.05) !important;">
+                    <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle" style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <i class="bi bi-star-half fs-5"></i>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">80+</h5>
-                    <p class="text-muted small mb-0">80+ verified Trustpilot reviews</p>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">80+ Reviews</h6>
+                        <small class="text-muted" style="font-size: 0.8rem; line-height: 1.2; display: block;">Verified Trustpilot reviews</small>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="card h-100 border shadow-sm rounded-4 p-4 text-center trust-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; border-color: rgba(0,0,0,0.05) !important;">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-warning bg-opacity-10 text-warning rounded-circle mb-3" style="width: 60px; height: 60px;">
-                        <i class="bi bi-star-fill fs-3"></i>
+            <!-- Card 3 -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border shadow-sm trust-flex-card h-100" style="transition: transform 0.2s ease, box-shadow 0.2s ease; border-color: rgba(0,0,0,0.05) !important;">
+                    <div class="d-flex align-items-center justify-content-center bg-warning bg-opacity-10 text-warning rounded-circle" style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <i class="bi bi-star-fill fs-5"></i>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">4.8★</h5>
-                    <p class="text-muted small mb-0">4.8★ average rating</p>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">4.8★ Rating</h6>
+                        <small class="text-muted" style="font-size: 0.8rem; line-height: 1.2; display: block;">Average customer rating</small>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="card h-100 border shadow-sm rounded-4 p-4 text-center trust-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; border-color: rgba(0,0,0,0.05) !important;">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle mb-3" style="width: 60px; height: 60px;">
-                        <i class="bi bi-airplane-fill fs-3"></i>
+            <!-- Card 4 -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border shadow-sm trust-flex-card h-100" style="transition: transform 0.2s ease, box-shadow 0.2s ease; border-color: rgba(0,0,0,0.05) !important;">
+                    <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle" style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <i class="bi bi-airplane-fill fs-5"></i>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">UK Departures</h5>
-                    <p class="text-muted small mb-0">Departures from all major UK airports</p>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">UK Departures</h6>
+                        <small class="text-muted" style="font-size: 0.8rem; line-height: 1.2; display: block;">Departures from all major UK airports</small>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Row 2: 3 Cards on Desktop -->
-        <div class="row g-4 justify-content-center">
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="card h-100 border shadow-sm rounded-4 p-4 text-center trust-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; border-color: rgba(0,0,0,0.05) !important;">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle mb-3" style="width: 60px; height: 60px;">
-                        <i class="bi bi-arrow-left-right fs-3"></i>
+        <div class="row g-3 justify-content-center mt-2">
+            <!-- Card 5 -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border shadow-sm trust-flex-card h-100" style="transition: transform 0.2s ease, box-shadow 0.2s ease; border-color: rgba(0,0,0,0.05) !important;">
+                    <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle" style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <i class="bi bi-arrow-left-right fs-5"></i>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">Return Flights</h5>
-                    <p class="text-muted small mb-0">Return flights included</p>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">Return Flights</h6>
+                        <small class="text-muted" style="font-size: 0.8rem; line-height: 1.2; display: block;">Return flights included</small>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="card h-100 border shadow-sm rounded-4 p-4 text-center trust-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; border-color: rgba(0,0,0,0.05) !important;">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle mb-3" style="width: 60px; height: 60px;">
-                        <i class="bi bi-car-front-fill fs-3"></i>
+            <!-- Card 6 -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border shadow-sm trust-flex-card h-100" style="transition: transform 0.2s ease, box-shadow 0.2s ease; border-color: rgba(0,0,0,0.05) !important;">
+                    <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle" style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <i class="bi bi-car-front-fill fs-5"></i>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">Transfers</h5>
-                    <p class="text-muted small mb-0">Private airport transfers</p>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">Transfers</h6>
+                        <small class="text-muted" style="font-size: 0.8rem; line-height: 1.2; display: block;">Private airport transfers</small>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="card h-100 border shadow-sm rounded-4 p-4 text-center trust-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; border-color: rgba(0,0,0,0.05) !important;">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle mb-3" style="width: 60px; height: 60px;">
-                        <i class="bi bi-shield-check fs-3"></i>
+            <!-- Card 7 -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border shadow-sm trust-flex-card h-100" style="transition: transform 0.2s ease, box-shadow 0.2s ease; border-color: rgba(0,0,0,0.05) !important;">
+                    <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle" style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <i class="bi bi-shield-check fs-5"></i>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">Visas</h5>
-                    <p class="text-muted small mb-0">Visa assistance available</p>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">Visa Support</h6>
+                        <small class="text-muted" style="font-size: 0.8rem; line-height: 1.2; display: block;">Visa assistance available</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,8 +103,8 @@
 </section>
 
 <style>
-.trust-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05) !important;
+.trust-flex-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06) !important;
 }
 </style>
