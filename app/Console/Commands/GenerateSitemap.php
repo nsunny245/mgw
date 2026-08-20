@@ -17,7 +17,11 @@ class GenerateSitemap extends Command
     public function handle()
     {
         $sitemap = Sitemap::create();
-        $base = rtrim(config('app.url'), '/');
+        $base = config('app.url');
+        if (empty($base) || in_array($base, ['http://localhost', 'http://127.0.0.1', 'http://127.0.0.1:8080', 'http://127.0.0.1:8000'])) {
+            $base = 'https://makkahgateway.co.uk';
+        }
+        $base = rtrim($base, '/');
 
         $sitemap->add(Url::create("{$base}/"));
         Package::all()->each(fn ($p) => $sitemap->add(Url::create("{$base}/package/{$p->slug}")));
