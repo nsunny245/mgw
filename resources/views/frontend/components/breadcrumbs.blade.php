@@ -17,7 +17,7 @@
 
 <div class="global-breadcrumb-banner text-center">
     <div class="container">
-        <h1 class="fw-bold mb-3 h2">{{ $title }}</h1>
+        <div class="fw-bold mb-3 h2 text-white">{{ $title }}</div>
         <nav class="fw-semibold">
             <a href="/">Home</a> <span class="mx-2">/</span> 
             @if(isset($parent) && isset($parent_link))
