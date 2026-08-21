@@ -55,18 +55,34 @@ Route::get('/ben-orbit-portal/{path?}', function ($path = null) {
 })->where('path', '.*');
 
 Route::get('/run-ga-setup', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate --force');
-    $setting = \App\Models\Setting::first();
-    if ($setting) {
-        $setting->update([
-            'google_analytics_id' => 'G-CJME2XSDZV',
-            'google_tag_manager_id' => 'GTM-KDZDXW2L',
-        ]);
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate --force');
+        \Illuminate\Support\Facades\Artisan::call('generate:sitemap');
+
+        $setting = \App\Models\Setting::first();
+        if ($setting) {
+            $setting->update([
+                'google_analytics_id' => 'G-CJME2XSDZV',
+                'google_tag_manager_id' => 'GTM-KDZDXW2L',
+                'atol_number' => $setting->atol_number ?: '11941',
+            ]);
+        }
+        \Illuminate\Support\Facades\Artisan::call('config:clear');
+        \Illuminate\Support\Facades\Artisan::call('cache:clear');
+        \Illuminate\Support\Facades\Artisan::call('view:clear');
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+
+        return '<div style="font-family:sans-serif;padding:30px;max-width:600px;margin:50px auto;border:1px solid #10b981;border-radius:12px;background:#f0fdf4;text-align:center;">
+            <h2 style="color:#047857;margin-top:0;">✅ Setup & Migration Complete!</h2>
+            <p style="color:#374151;">Database migrations applied, Sitemaps compiled, Google Analytics/GTM enabled, and all caches cleared successfully.</p>
+            <a href="/" style="display:inline-block;margin-top:15px;padding:10px 20px;background:#059669;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;">Return to Website</a>
+        </div>';
+    } catch (\Exception $e) {
+        return '<div style="font-family:sans-serif;padding:30px;max-width:600px;margin:50px auto;border:1px solid #ef4444;border-radius:12px;background:#fef2f2;">
+            <h2 style="color:#b91c1c;margin-top:0;">❌ Setup Error</h2>
+            <pre style="background:#fff;padding:15px;border-radius:6px;overflow-x:auto;color:#1f2937;">' . e($e->getMessage()) . '</pre>
+        </div>';
     }
-    \Illuminate\Support\Facades\Artisan::call('config:clear');
-    \Illuminate\Support\Facades\Artisan::call('cache:clear');
-    \Illuminate\Support\Facades\Artisan::call('view:clear');
-    return 'Database migrated, Google Analytics & GTM successfully activated on live site!';
 });
 
 Route::get('/debug-notifications', function () {

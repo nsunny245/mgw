@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        \Illuminate\Support\Facades\Schema::defaultStringLength(191);
         SEOMeta::setTitleDefault('Makkah Gateway');
         OpenGraph::setSiteName('Makkah Gateway');
 

@@ -8,9 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
+        Schema::dropIfExists('seo_meta');
         Schema::create('seo_meta', function (Blueprint $table) {
             $table->id();
-            $table->morphs('seoable');
+            $table->string('seoable_type', 100);
+            $table->unsignedBigInteger('seoable_id');
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('canonical_url_override')->nullable();
