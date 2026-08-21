@@ -29,6 +29,10 @@
                         <p class="text-muted mb-0 px-3">{{ session('success_hero') }}</p>
                         <a href="{{ url('/') }}" class="btn btn-outline-success mt-4 fw-bold px-4">Submit Another Query</a>
                     </div>
+                    <script>
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({'event': 'mgw_quote_submitted'});
+                    </script>
                 @else
                     <div class="quote-form-card shadow-lg bg-white rounded-4" id="quoteForm">
                         <h3 class="fw-bold text-center mb-4">Get The Best Umrah Deals!</h3>
@@ -39,7 +43,7 @@
                             <input type="hidden" name="form_url" value="{{ request()->fullUrl() }}">
                             <div style="display:none;"><input type="text" name="fax_number" value=""></div>
                             <div class="mb-3">
-                                <input type="text" name="name" class="form-control" placeholder="Full Name *" required>
+                                <input type="text" name="name" onfocus="window.dataLayer = window.dataLayer || []; if(!window.quoteStarted) { window.quoteStarted = true; window.dataLayer.push({'event': 'mgw_quote_started'}); }" class="form-control" placeholder="Full Name *" required>
                             </div>
                             <div class="mb-3">
                                 <input type="text" name="phone" class="form-control" placeholder="Phone Number *" required>

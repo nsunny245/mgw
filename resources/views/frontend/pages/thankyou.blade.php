@@ -21,4 +21,11 @@
         </div>
     </div>
 </section>
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'mgw_quote_submitted'
+    });
+</script>
 @endsection

@@ -97,4 +97,41 @@ class SeoRequirementsTest extends TestCase
         // Assert H1 contains the primary keyword
         $response->assertSee($expectedH1, false);
     }
+
+    public function test_index_php_redirects_to_clean_path(): void
+    {
+        $request = \Illuminate\Http\Request::create('http://localhost/index.php/about-us', 'GET');
+        $middleware = new \App\Http\Middleware\EnforceSeoNormalsMiddleware();
+
+        $response = $middleware->handle($request, function() {
+            return response('OK');
+        });
+
+        $this->assertEquals(301, $response->getStatusCode());
+        $this->assertEquals('http://localhost/about-us', $response->headers->get('Location'));
+    }
+
+    public function test_trailing_slash_redirects_to_clean_path(): void
+    {
+        $request = \Illuminate\Http\Request::create('http://localhost/about-us/', 'GET');
+        $middleware = new \App\Http\Middleware\EnforceSeoNormalsMiddleware();
+
+        $response = $middleware->handle($request, function() {
+            return response('OK');
+        });
+
+        $this->assertEquals(301, $response->getStatusCode());
+        $this->assertEquals('http://localhost/about-us', $response->headers->get('Location'));
+    }
+
+    public function test_robots_txt_contains_correct_directives(): void
+    {
+        $robotsPath = public_path('robots.txt');
+        $this->assertFileExists($robotsPath);
+        
+        $content = file_get_contents($robotsPath);
+        $this->assertStringContainsString('User-agent: *', $content);
+        $this->assertStringContainsString('Disallow: /admin/', $content);
+        $this->assertStringContainsString('Sitemap: https://www.makkahgateway.co.uk/sitemap.xml', $content);
+    }
 }

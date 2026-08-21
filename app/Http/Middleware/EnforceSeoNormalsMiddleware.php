@@ -10,7 +10,7 @@ class EnforceSeoNormalsMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $path = $request->getRequestUri();
+        $path = $request->server('REQUEST_URI') ?: $request->getRequestUri();
 
         // 1. Skip Filament admin routes to preserve dashboard operations
         if (str_starts_with($request->path(), 'admin') || str_starts_with($request->path(), 'filament')) {
@@ -36,8 +36,13 @@ class EnforceSeoNormalsMiddleware
         }
 
         // 4. Redirect trailing slash variants (unless it is the homepage root)
-        if ($request->path() !== '/' && str_ends_with($request->getPathInfo(), '/')) {
-            $cleanPath = rtrim($request->getRequestUri(), '/');
+        $pathOnly = parse_url($path, PHP_URL_PATH);
+        if ($pathOnly !== '/' && str_ends_with($pathOnly, '/')) {
+            $cleanPath = rtrim($pathOnly, '/');
+            $query = parse_url($path, PHP_URL_QUERY);
+            if ($query) {
+                $cleanPath .= '?' . $query;
+            }
             return redirect()->to($this->getCanonicalTargetUrl($request, $cleanPath), 301);
         }
 

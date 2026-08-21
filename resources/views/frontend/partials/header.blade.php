@@ -12,9 +12,9 @@
                         <div class="text-dark"><i class="bi bi-geo-alt-fill text-success me-1"></i> {{ $settings->address ?? 'High Wycombe, UK' }}</div>
                     </div>
                 </div>
-                <div class="col-lg-6 text-center text-lg-end d-flex justify-content-end align-items-center gap-1 gap-xl-2">
-                    <a href="tel:{{ preg_replace('/[^0-9]/', '', $settings->phone ?? '02034111934') }}" class="btn btn-success px-2 px-xl-3 fw-bold" style="white-space: nowrap; font-size: 0.9rem;"><i class="bi bi-telephone-fill me-1"></i> Call: {{ $settings->phone ?? '0203 411 1934' }}</a>
-                    <a href="https://wa.me/{{ $settings->whatsapp_number ?? '447380888233' }}" target="_blank" class="btn btn-success px-2 px-xl-3 fw-bold" style="background-color: #25D366; border-color: #25D366; white-space: nowrap; font-size: 0.9rem;"><i class="bi bi-whatsapp me-1"></i> WhatsApp</a>
+                 <div class="col-lg-6 text-center text-lg-end d-flex justify-content-end align-items-center gap-1 gap-xl-2">
+                    <a href="tel:{{ preg_replace('/[^0-9]/', '', $settings->phone ?? '02034111934') }}" onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'mgw_phone_click'});" class="btn btn-success px-2 px-xl-3 fw-bold" style="white-space: nowrap; font-size: 0.9rem;"><i class="bi bi-telephone-fill me-1"></i> Call: {{ $settings->phone ?? '0203 411 1934' }}</a>
+                    <a href="https://wa.me/{{ $settings->whatsapp_number ?? '447380888233' }}" onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'mgw_whatsapp_click'});" target="_blank" class="btn btn-success px-2 px-xl-3 fw-bold" style="background-color: #25D366; border-color: #25D366; white-space: nowrap; font-size: 0.9rem;"><i class="bi bi-whatsapp me-1"></i> WhatsApp</a>
                     <a href="#quoteForm" class="btn btn-warning px-2 px-xl-3 fw-semibold" style="white-space: nowrap; font-size: 0.9rem;">Get a Quote</a>
                 </div>
             </div>
@@ -25,7 +25,7 @@
         <div class="container">
             <a class="navbar-brand d-lg-none" href="{{ url('/') }}"><img loading="lazy" src="{{ asset('frontend/images/logo.png') }}" alt="Makkah Gateway" height="45"></a>
             <div class="d-flex align-items-center gap-2 d-lg-none">
-                <a href="tel:{{ preg_replace('/[^0-9]/', '', $settings->phone ?? '02034111934') }}" class="btn btn-success btn-sm fw-bold"><i class="bi bi-telephone-fill me-1"></i> {{ $settings->phone ?? '0203 411 1934' }}</a>
+                <a href="tel:{{ preg_replace('/[^0-9]/', '', $settings->phone ?? '02034111934') }}" onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'mgw_phone_click'});" class="btn btn-success btn-sm fw-bold"><i class="bi bi-telephone-fill me-1"></i> {{ $settings->phone ?? '0203 411 1934' }}</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"><span class="navbar-toggler-icon"></span></button>
             </div>
             <div class="collapse navbar-collapse" id="mainNavbar">
