@@ -87,7 +87,7 @@
             <div class="row text-center text-white g-0">
                 <div class="col-md-3 trust-item">
                     <strong>ATOL Protected</strong>
-                    <div class="tiny">License No: 11941</div>
+                    <div class="tiny">License No: {{ $settings->atol_number ?? '11941' }}</div>
                 </div>
                 <div class="col-md-3 trust-item">
                     <strong>IATA Certified</strong>

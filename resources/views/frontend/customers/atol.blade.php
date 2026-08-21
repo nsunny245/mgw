@@ -45,7 +45,7 @@
                 <tbody>
                     <tr>
                         <th>ATOL Certificate Number:</th>
-                        <td class="fw-bold text-primary">{{ $atol->atol_certificate_number ?? 'ATOL-11941' }}</td>
+                        <td class="fw-bold text-primary">{{ $atol->atol_certificate_number ?? ('ATOL-' . ($settings->atol_number ?? '11941')) }}</td>
                     </tr>
                     <tr>
                         <th>Date of Protection:</th>
@@ -81,7 +81,7 @@
 
     <div class="border-top pt-4 text-center text-muted small">
         <p class="mb-0">Makkah Gateway is a trading name of Makkah Gateway LTD. Registered office: HP14 3FE, United Kingdom.</p>
-        <p class="tiny mt-1 text-primary fw-bold">ATOL License Holder #11941. Civil Aviation Authority.</p>
+        <p class="tiny mt-1 text-primary fw-bold">ATOL License Holder #{{ $settings->atol_number ?? '11941' }}. Civil Aviation Authority.</p>
     </div>
 </div>
 

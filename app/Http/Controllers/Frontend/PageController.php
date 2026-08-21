@@ -10,14 +10,26 @@ class PageController extends Controller
 {
     public function show($slug = 'about-us')
     {
-        $page = Page::where('slug', $slug)->firstOrFail();
+        $page = Page::with('seo')->where('slug', $slug)->firstOrFail();
 
-        SEOTools::setTitle($page->meta_title ?? $page->title);
-        SEOTools::setDescription($page->meta_description ?? 'Makkah Gateway');
-        SEOTools::setCanonical(url()->current());
-        SEOTools::opengraph()->setUrl(url()->current());
+        $canonicalService = app(\App\Services\Seo\CanonicalUrlService::class);
+        $canonicalService->setActiveModel($page);
+
+        if (!$page->seo || !$page->seo->meta_title) {
+            SEOTools::setTitle($page->meta_title ?? $page->title);
+        }
+        if (!$page->seo || !$page->seo->meta_description) {
+            SEOTools::setDescription($page->meta_description ?? 'Makkah Gateway');
+        }
+
+        $canonicalUrl = $canonicalService->forCurrentRequest();
+        SEOTools::setCanonical($canonicalUrl);
+        SEOTools::opengraph()->setUrl($canonicalUrl);
         SEOTools::opengraph()->addProperty('type', 'website');
-        SEOTools::opengraph()->addImage(asset('frontend/images/hero-bg.png'));
+
+        $ogImage = ($page->seo && $page->seo->og_image) ? $page->seo->og_image : asset('frontend/images/hero-bg.png');
+        SEOTools::opengraph()->addImage($ogImage);
+
         SEOTools::twitter()->setSite('@makkahgateway');
 
         return view('frontend.pages.about', compact('page'));

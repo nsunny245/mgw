@@ -25,14 +25,26 @@ class BlogController extends Controller
 
     public function show($slug)
     {
-        $blog = Blog::where('slug', $slug)->firstOrFail();
+        $blog = Blog::with('seo')->where('slug', $slug)->firstOrFail();
 
-        SEOTools::setTitle($blog->meta_title ?? $blog->title);
-        SEOTools::setDescription($blog->meta_description ?? 'Latest Umrah blog updates');
-        SEOTools::setCanonical(url()->current());
-        SEOTools::opengraph()->setUrl(url()->current());
+        $canonicalService = app(\App\Services\Seo\CanonicalUrlService::class);
+        $canonicalService->setActiveModel($blog);
+
+        if (!$blog->seo || !$blog->seo->meta_title) {
+            SEOTools::setTitle($blog->meta_title ?? $blog->title);
+        }
+        if (!$blog->seo || !$blog->seo->meta_description) {
+            SEOTools::setDescription($blog->meta_description ?? 'Latest Umrah blog updates');
+        }
+
+        $canonicalUrl = $canonicalService->forCurrentRequest();
+        SEOTools::setCanonical($canonicalUrl);
+        SEOTools::opengraph()->setUrl($canonicalUrl);
         SEOTools::opengraph()->addProperty('type', 'website');
-        SEOTools::opengraph()->addImage($blog->getFirstMediaUrl('blogs') ?: asset('frontend/images/hero-bg.png'));
+        
+        $ogImage = ($blog->seo && $blog->seo->og_image) ? $blog->seo->og_image : ($blog->getFirstMediaUrl('blogs') ?: asset('frontend/images/hero-bg.png'));
+        SEOTools::opengraph()->addImage($ogImage);
+
         SEOTools::twitter()->setSite('@makkahgateway');
 
         $relatedBlogs = Blog::where('id', '!=', $blog->id)->latest()->take(3)->get();

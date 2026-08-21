@@ -39,13 +39,7 @@ class PageResource extends Resource
                         ->required()
                         ->columnSpanFull(),
                 ])->columns(2),
-            Forms\Components\Section::make('SEO Settings')
-                ->schema([
-                    Forms\Components\TextInput::make('meta_title')
-                        ->maxLength(255),
-                    Forms\Components\Textarea::make('meta_description')
-                        ->maxLength(500),
-                ]),
+            \App\Helpers\SeoFormHelper::getSeoFormSection(),
         ]);
     }
 

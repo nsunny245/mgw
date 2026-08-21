@@ -25,4 +25,9 @@ class Page extends Model
             ],
         ];
     }
+
+    public function seo()
+    {
+        return $this->morphOne(\App\Models\SeoMeta::class, 'seoable');
+    }
 }

@@ -13,10 +13,13 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $canonicalService = app(\App\Services\Seo\CanonicalUrlService::class);
+        $canonicalUrl = $canonicalService->forCurrentRequest();
+
         SEOTools::setTitle('Makkah Gateway - Best Umrah Packages from UK');
         SEOTools::setDescription('Affordable Umrah packages from UK with ATOL protection, luxury hotels, flights and visa support.');
-        SEOTools::setCanonical(url()->current());
-        SEOTools::opengraph()->setUrl(url()->current());
+        SEOTools::setCanonical($canonicalUrl);
+        SEOTools::opengraph()->setUrl($canonicalUrl);
         SEOTools::opengraph()->addProperty('type', 'website');
         SEOTools::opengraph()->addImage(asset('frontend/images/hero-bg.png'));
         SEOTools::twitter()->setSite('@makkahgateway');

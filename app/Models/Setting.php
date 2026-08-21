@@ -28,5 +28,6 @@ class Setting extends Model
         'pusher_app_key',
         'pusher_app_secret',
         'pusher_app_cluster',
+        'atol_number',
     ];
 }

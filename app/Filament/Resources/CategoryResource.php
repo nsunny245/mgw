@@ -25,15 +25,7 @@ class CategoryResource extends Resource
     {
         return $form->schema([
             Forms\Components\TextInput::make('name')->required(),
-            Forms\Components\TextInput::make('meta_title')
-                ->label('SEO Title Override')
-                ->placeholder('Easter Umrah Packages | Best UK Holiday Deals')
-                ->maxLength(255),
-            Forms\Components\Textarea::make('meta_description')
-                ->label('SEO Meta Description')
-                ->placeholder('Enter the custom meta description for search engines.')
-                ->maxLength(500)
-                ->columnSpanFull(),
+            \App\Helpers\SeoFormHelper::getSeoFormSection(),
         ]);
     }
 

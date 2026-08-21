@@ -89,11 +89,7 @@ class PackageResource extends Resource
                         ->default([])
                         ->nullable(),
                 ])->columns(2),
-            Forms\Components\Section::make('SEO')
-                ->schema([
-                    Forms\Components\TextInput::make('meta_title'),
-                    Forms\Components\Textarea::make('meta_description'),
-                ]),
+            \App\Helpers\SeoFormHelper::getSeoFormSection(),
         ]);
     }
 

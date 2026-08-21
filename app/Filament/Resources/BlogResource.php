@@ -32,8 +32,7 @@ class BlogResource extends Resource
                 ->placeholder('SEO descriptive text for the blog image')
                 ->maxLength(255),
             Forms\Components\RichEditor::make('content')->columnSpanFull(),
-            Forms\Components\TextInput::make('meta_title'),
-            Forms\Components\Textarea::make('meta_description'),
+            \App\Helpers\SeoFormHelper::getSeoFormSection(),
         ]);
     }
 

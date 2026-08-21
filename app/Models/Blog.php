@@ -30,6 +30,11 @@ class Blog extends Model implements HasMedia
         ];
     }
 
+    public function seo()
+    {
+        return $this->morphOne(\App\Models\SeoMeta::class, 'seoable');
+    }
+
     public function registerMediaConversions(\Spatie\MediaLibrary\MediaCollections\Models\Media $media = null): void
     {
         $this->addMediaConversion('webp')

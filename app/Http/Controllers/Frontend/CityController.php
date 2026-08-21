@@ -11,21 +11,29 @@ class CityController extends Controller
 {
     public function show($slug)
     {
-        $city = City::where('slug', $slug)->firstOrFail();
+        $city = City::with('seo')->where('slug', $slug)->firstOrFail();
+
+        $canonicalService = app(\App\Services\Seo\CanonicalUrlService::class);
+        $canonicalService->setActiveModel($city);
 
         $seoData = \App\Helpers\SeoContentHelper::getForCity($slug);
-        $seoTitle = $seoData['title'] ?? ($city->meta_title ?? $city->name);
-        $seoDescription = $seoData['description'] ?? ($city->meta_description ?? 'Umrah packages from UK cities');
+        $seoTitle = ($city->seo && $city->seo->meta_title) ? $city->seo->meta_title : ($seoData['title'] ?? ($city->meta_title ?? $city->name));
+        $seoDescription = ($city->seo && $city->seo->meta_description) ? $city->seo->meta_description : ($seoData['description'] ?? ($city->meta_description ?? 'Umrah packages from UK cities'));
         $seoH1 = $seoData['h1'] ?? $city->name;
         $seoIntro = $seoData['intro'] ?? null;
         $seoFaqs = $seoData['faqs'] ?? null;
 
         SEOTools::setTitle($seoTitle);
         SEOTools::setDescription($seoDescription);
-        SEOTools::setCanonical(url()->current());
-        SEOTools::opengraph()->setUrl(url()->current());
+
+        $canonicalUrl = $canonicalService->forCurrentRequest();
+        SEOTools::setCanonical($canonicalUrl);
+        SEOTools::opengraph()->setUrl($canonicalUrl);
         SEOTools::opengraph()->addProperty('type', 'website');
-        SEOTools::opengraph()->addImage(asset('frontend/images/hero-bg.png'));
+
+        $ogImage = ($city->seo && $city->seo->og_image) ? $city->seo->og_image : asset('frontend/images/hero-bg.png');
+        SEOTools::opengraph()->addImage($ogImage);
+
         SEOTools::twitter()->setSite('@makkahgateway');
 
         $packages = Package::where('departure_city', $city->name)->latest()->get();

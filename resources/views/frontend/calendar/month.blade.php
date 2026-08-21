@@ -98,7 +98,7 @@
                             </span>
                             @if(!empty($package->duration))
                                 <span class="badge bg-dark text-white position-absolute top-0 end-0 m-3 px-2 py-1.5 small fw-bold shadow-sm" style="z-index: 10;">
-                                    <i class="bi bi-clock me-1"></i> {{ $package->duration }} Days
+                                    <i class="bi bi-clock me-1"></i> {{ trim(str_ireplace(['days', 'day'], '', $package->duration)) }} Days
                                 </span>
                             @endif
 

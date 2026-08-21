@@ -35,8 +35,7 @@ class CityResource extends Resource
                 ->imageResizeTargetHeight(170)
                 ->helperText('Upload a landmark picture for the city (Recommended size: 400x170 px)'),
             Forms\Components\RichEditor::make('content')->columnSpanFull(),
-            Forms\Components\TextInput::make('meta_title'),
-            Forms\Components\Textarea::make('meta_description'),
+            \App\Helpers\SeoFormHelper::getSeoFormSection(),
         ]);
     }
 

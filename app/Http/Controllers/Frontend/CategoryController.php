@@ -11,21 +11,29 @@ class CategoryController extends Controller
 {
     public function show($slug)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
+        $category = Category::with('seo')->where('slug', $slug)->firstOrFail();
+
+        $canonicalService = app(\App\Services\Seo\CanonicalUrlService::class);
+        $canonicalService->setActiveModel($category);
 
         $seoData = \App\Helpers\SeoContentHelper::getForCategory($slug);
-        $seoTitle = $seoData['title'] ?? ($category->meta_title ?? $category->name);
-        $seoDescription = $seoData['description'] ?? ($category->meta_description ?? 'Browse ' . $category->name . ' for high quality Umrah packages.');
+        $seoTitle = ($category->seo && $category->seo->meta_title) ? $category->seo->meta_title : ($seoData['title'] ?? ($category->meta_title ?? $category->name));
+        $seoDescription = ($category->seo && $category->seo->meta_description) ? $category->seo->meta_description : ($seoData['description'] ?? ($category->meta_description ?? 'Browse ' . $category->name . ' for high quality Umrah packages.'));
         $seoH1 = $seoData['h1'] ?? $category->name;
         $seoIntro = $seoData['intro'] ?? null;
         $seoFaqs = $seoData['faqs'] ?? null;
 
         SEOTools::setTitle($seoTitle);
         SEOTools::setDescription($seoDescription);
-        SEOTools::setCanonical(url()->current());
-        SEOTools::opengraph()->setUrl(url()->current());
+
+        $canonicalUrl = $canonicalService->forCurrentRequest();
+        SEOTools::setCanonical($canonicalUrl);
+        SEOTools::opengraph()->setUrl($canonicalUrl);
         SEOTools::opengraph()->addProperty('type', 'website');
-        SEOTools::opengraph()->addImage(asset('frontend/images/hero-bg.png'));
+
+        $ogImage = ($category->seo && $category->seo->og_image) ? $category->seo->og_image : asset('frontend/images/hero-bg.png');
+        SEOTools::opengraph()->addImage($ogImage);
+
         SEOTools::twitter()->setSite('@makkahgateway');
 
         $packages = Package::where('category_id', $category->id)->latest()->get();

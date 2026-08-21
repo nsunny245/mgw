@@ -84,6 +84,11 @@ class Package extends Model implements HasMedia
         return $this->hasMany(UmrahCalendar::class);
     }
 
+    public function seo()
+    {
+        return $this->morphOne(\App\Models\SeoMeta::class, 'seoable');
+    }
+
     public function registerMediaConversions(\Spatie\MediaLibrary\MediaCollections\Models\Media $media = null): void
     {
         $this->addMediaConversion('webp')

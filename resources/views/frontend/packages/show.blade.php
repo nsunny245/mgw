@@ -131,7 +131,7 @@
                         <div class="metric-item">
                             <div class="metric-icon"><i class="bi bi-clock-fill"></i></div>
                             <div class="metric-label">Duration</div>
-                            <div class="metric-value">{{ $package->duration ?: '14' }} Days</div>
+                            <div class="metric-value">{{ trim(str_ireplace(['days', 'day'], '', $package->duration ?: '14')) }} Days</div>
                         </div>
                         <div class="metric-item">
                             <div class="metric-icon"><i class="bi bi-building-fill-check"></i></div>

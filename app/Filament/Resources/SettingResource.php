@@ -30,6 +30,7 @@ class SettingResource extends Resource
                     Forms\Components\TextInput::make('phone'),
                     Forms\Components\TextInput::make('email')->label('Notification/Inquiry Recipient Email')->email()->required(),
                     Forms\Components\TextInput::make('address'),
+                    Forms\Components\TextInput::make('atol_number')->label('ATOL License Number')->placeholder('11941'),
                 ]),
             Forms\Components\Section::make('Social Media Links')
                 ->schema([
