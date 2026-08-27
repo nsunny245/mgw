@@ -31,4 +31,9 @@ class City extends Model
     {
         return $this->morphOne(\App\Models\SeoMeta::class, 'seoable');
     }
+
+    public function packages()
+    {
+        return $this->belongsToMany(Package::class);
+    }
 }

@@ -290,4 +290,36 @@ class ExampleTest extends TestCase
         $response->assertSee('Frequently Asked Questions About Umrah from the UK', false);
         $response->assertSee('Search Umrah questions...', false);
     }
+
+    public function test_package_can_be_created_without_category(): void
+    {
+        $package = \App\Models\Package::create([
+            'title' => 'No Category Umrah Deal',
+            'slug' => 'no-category-umrah-deal',
+            'price' => 999.00,
+            'category_id' => null,
+        ]);
+
+        $this->assertDatabaseHas('packages', [
+            'id' => $package->id,
+            'category_id' => null,
+        ]);
+    }
+
+    public function test_package_can_be_assigned_to_city_and_renders_on_city_page(): void
+    {
+        $city = \App\Models\City::firstOrCreate(['slug' => 'london'], ['name' => 'London']);
+
+        $package = \App\Models\Package::create([
+            'title' => 'London Exclusive Umrah Package',
+            'slug' => 'london-exclusive-umrah-package',
+            'price' => 1450.00,
+        ]);
+
+        $package->cities()->attach($city->id);
+
+        $response = $this->get('/umrah-packages-london');
+        $response->assertStatus(200);
+        $response->assertSee('London Exclusive Umrah Package');
+    }
 }

@@ -34,9 +34,13 @@ class CityController extends Controller
         $ogImage = ($city->seo && $city->seo->og_image) ? $city->seo->og_image : asset('frontend/images/hero-bg.png');
         SEOTools::opengraph()->addImage($ogImage);
 
-        SEOTools::twitter()->setSite('@makkahgateway');
-
-        $packages = Package::where('departure_city', $city->name)->latest()->get();
+        $packages = Package::whereHas('cities', function ($q) use ($city) {
+            $q->where('cities.id', $city->id);
+        })
+        ->orWhere('departure_city', $city->name)
+        ->orWhere('departure_city', 'like', '%' . trim($city->name) . '%')
+        ->latest()
+        ->get();
 
         return view('frontend.cities.show', compact('city', 'packages', 'seoTitle', 'seoDescription', 'seoH1', 'seoIntro', 'seoFaqs'));
     }

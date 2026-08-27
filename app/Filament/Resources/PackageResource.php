@@ -46,15 +46,28 @@ class PackageResource extends Resource
                     ]),
                     Forms\Components\TextInput::make('makkah_hotel')->label('Makkah Hotel'),
                     Forms\Components\TextInput::make('madinah_hotel')->label('Madinah Hotel'),
-                    Forms\Components\TextInput::make('departure_city'),
+                    Forms\Components\Select::make('cities')
+                        ->label('Departure Cities')
+                        ->relationship('cities', 'name')
+                        ->multiple()
+                        ->searchable()
+                        ->preload()
+                        ->helperText('Select specific departure cities where this package should be listed (e.g. London, Manchester, Birmingham, Bradford).'),
+                    Forms\Components\TextInput::make('departure_city')
+                        ->label('Departure City Label (Optional)')
+                        ->placeholder('e.g. London, Manchester or All UK Airports')
+                        ->helperText('Custom text displayed on package cards (optional).'),
                     Forms\Components\Select::make('status')->options([
                         'Available' => 'Available',
                         'Filling Fast' => 'Filling Fast',
                         'Sold Out' => 'Sold Out',
                     ])->default('Available'),
                     Forms\Components\Select::make('category_id')
+                        ->label('Category (Optional)')
                         ->relationship('category', 'name')
-                        ->required(),
+                        ->searchable()
+                        ->preload()
+                        ->nullable(),
                     Forms\Components\Toggle::make('featured')
                         ->label('Show on Homepage')
                         ->helperText('Toggle this to display this package on the homepage.')

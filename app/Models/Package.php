@@ -79,6 +79,11 @@ class Package extends Model implements HasMedia
         return $this->belongsTo(Category::class);
     }
 
+    public function cities()
+    {
+        return $this->belongsToMany(City::class);
+    }
+
     public function calendars()
     {
         return $this->hasMany(UmrahCalendar::class);
